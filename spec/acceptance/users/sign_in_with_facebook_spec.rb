@@ -15,7 +15,6 @@ feature 'User can sign in and sign up with facebook', '
     visit new_user_session_path
 
     click_on 'Sign in with facebook'
-
     mock_facebook_auth_hash
 
     expect(page).to have_content 'Successfully authenticated from Facebook account.'
@@ -27,7 +26,6 @@ feature 'User can sign in and sign up with facebook', '
       visit new_user_session_path
 
       click_on 'Sign in with facebook'
-
       mock_facebook_auth_hash
 
       expect(page).to have_content 'Successfully authenticated from Facebook account.'
@@ -37,7 +35,6 @@ feature 'User can sign in and sign up with facebook', '
       visit new_user_session_path
 
       click_on 'Sign in with facebook'
-
       mock_facebook_auth_hash
 
       expect(page).to have_content 'Successfully authenticated from Facebook account.'
