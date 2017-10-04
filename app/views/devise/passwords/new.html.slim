@@ -1,4 +1,4 @@
-h2 Forgot your password?
+h2 style="margin-left: 15px; margin-bottom: 25px;" Forgot your password?
 = form_for(resource, as: resource_name, url: password_path(resource_name), html: {method: :post, class: 'form-horizontal'}) do |f|
   = devise_error_messages!
   .form-group
@@ -10,4 +10,6 @@ h2 Forgot your password?
       = f.submit 'Send me reset password instructions', class: 'btn btn-primary'
   .form-group
     .col-sm-6.col-sm-offset-2
+      br
+      br
       = render 'devise/shared/links'

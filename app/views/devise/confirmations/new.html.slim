@@ -1,12 +1,17 @@
-h2
+h2 style="margin-left: 15px; margin-bottom: 25px;"
   | Resend confirmation instructions
-= form_for(resource, as: resource_name, url: confirmation_path(resource_name), html: { method: :post }) do |f|
+= form_for(resource, as: resource_name, url: confirmation_path(resource_name), html: { method: :post , class: 'form-horizontal'}) do |f|
   = devise_error_messages!
-  .field
-    = f.label :email
-    br
-    = f.email_field :email, autofocus: true,
-            value: (resource.pending_reconfirmation? ? resource.unconfirmed_email : resource.email)
-  .actions
-    = f.submit 'Resend confirmation instructions'
-= render 'devise/shared/links'
+  .form-group
+    = f.label :email, class: 'col-sm-2 control-label'
+    .col-sm-6
+      = f.email_field :email, autofocus: true, class: 'form-control',
+              value: (resource.pending_reconfirmation? ? resource.unconfirmed_email : resource.email)
+  .form-group
+    .col-sm-6.col-sm-offset-2
+      = f.submit 'Resend confirmation instructions', class: 'btn btn-primary'
+  .form-group
+    .col-sm-6.col-sm-offset-2
+      br
+      br
+      = render 'devise/shared/links'
