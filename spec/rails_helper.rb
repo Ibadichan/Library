@@ -16,6 +16,7 @@ RSpec.configure do |config|
   config.include Devise::Test::ControllerHelpers, type: :controller
 
   config.extend ControllerMacros, type: :controller
+  config.include OmniauthMacros
 
   config.fixture_path = "#{::Rails.root}/spec/fixtures"
 
@@ -30,3 +31,5 @@ Shoulda::Matchers.configure do |config|
     with.library :rails
   end
 end
+
+OmniAuth.config.test_mode = true
