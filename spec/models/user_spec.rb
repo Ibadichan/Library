@@ -3,6 +3,19 @@ require 'rails_helper'
 RSpec.describe User, type: :model do
   it { should have_many(:authorizations).dependent(:destroy) }
 
+  describe '#email_verified?' do
+    let(:user)      { create(:user) }
+    let(:fake_user) { create(:user, email: 'change@me') }
+
+    context 'email is not verified' do
+      it('returns true') { expect(user.email_verified?).to eq true }
+    end
+
+    context 'email is verified' do
+      it('returns false') { expect(fake_user.email_verified?).to eq false }
+    end
+  end
+
   describe '.find_for_oauth' do
     let!(:user) { create(:user) }
 
@@ -37,25 +50,43 @@ RSpec.describe User, type: :model do
       end
 
       context 'User does not exist' do
-        let(:auth) do
-          OmniAuth::AuthHash.new(provider: 'facebook', uid: '123456',
-                                 info: { email: 'new@mail.com' })
+        context 'Email is given' do
+          let(:auth) do
+            OmniAuth::AuthHash.new(provider: 'facebook', uid: '123456',
+                                   info: { email: 'new@mail.com' })
+          end
+
+          it 'creates a new user' do
+            expect { User.find_for_oauth(auth) }.to change(User, :count).by(1)
+            expect(User.find_for_oauth(auth).email).to eq auth.info.email
+          end
+
+          RSpec.shared_examples 'the create authorization and return user' do
+            it 'creates a new authorization for user with provider and uid' do
+              expect { User.find_for_oauth(auth) }.to change(Authorization, :count).by(1)
+              authorization = User.find_for_oauth(auth).authorizations.first
+              expect(authorization.provider).to eq auth.provider
+              expect(authorization.uid).to eq auth.uid
+            end
+
+            it 'finds and returns user' do
+              expect(User.find_for_oauth(auth)).to be_a(User)
+            end
+          end
+
+          it_behaves_like 'the create authorization and return user'
         end
 
-        it 'creates a new user' do
-          expect { User.find_for_oauth(auth) }.to change(User, :count).by(1)
-          expect(User.find_for_oauth(auth).email).to eq auth.info.email
-        end
+        context 'Email is not given' do
+          let(:auth) { OmniAuth::AuthHash.new(provider: 'facebook', uid: '123456', info: {}) }
 
-        it 'creates a new authorization for user with email' do
-          expect { User.find_for_oauth(auth) }.to change(Authorization, :count).by(1)
-          authorization = User.find_for_oauth(auth).authorizations.first
-          expect(authorization.provider).to eq auth.provider
-          expect(authorization.uid).to eq auth.uid
-        end
+          it 'creates a new user with fake email' do
+            expect { User.find_for_oauth(auth) }.to change(User, :count).by(1)
+            expect(User.find_for_oauth(auth).email)
+              .to eq "change@me-#{auth.uid}-#{auth.provider}.com"
+          end
 
-        it 'finds and returns user' do
-          expect(User.find_for_oauth(auth)).to be_a(User)
+          it_behaves_like 'the create authorization and return user'
         end
       end
     end
