@@ -1,4 +1,4 @@
-h2 Log in
+h2 style="margin-left: 15px; margin-bottom: 25px;" Log in
 = form_for(resource, as: resource_name, url: session_path(resource_name), html: {class: 'form-horizontal'}) do |f|
   .form-group
     = f.label :email, class: 'col-sm-2 control-label'
@@ -15,7 +15,7 @@ h2 Log in
         = f.label :remember_me
   .form-group
     .col-sm-6.col-sm-offset-2
-      = f.submit 'Log in', class: 'btn btn-primary'
+      = f.submit 'Log in', class: 'btn btn btn-primary'
   .form-group
     .col-sm-6.col-sm-offset-2
       = render 'devise/shared/links'
