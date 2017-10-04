@@ -1,0 +1,7 @@
+.container
+  h1 Please, add your email for verify account
+  = form_for(current_user, as: 'user', url: finish_sign_up_path(current_user), html: { role: 'form'}) do |f|
+    = f.label :email
+    = f.text_field :email, value: '', class: 'form-control input-lg', placeholder: 'Example: email@me.com'
+    br
+    = f.submit 'Post', class: 'btn btn-primary'
