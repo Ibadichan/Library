@@ -6,7 +6,9 @@ feature 'User can sign in/up with vkontakte', '
   I want to sign in/up with vkontakte
 ' do
 
-  given(:user) { create(:user) }
+  given(:user)     { create(:user) }
+  given(:provider) { mock_vkontakte_auth_hash.provider }
+  given(:mock_provider_auth_hash) { mock_vkontakte_auth_hash }
 
   scenario 'User has authorization' do
     user.authorizations.create(provider: mock_vkontakte_auth_hash.provider,
@@ -21,45 +23,6 @@ feature 'User can sign in/up with vkontakte', '
   end
 
   describe 'User has not authorization' do
-    scenario 'User exists' do
-      user
-      visit new_user_session_path
-
-      click_on 'Sign in with vkontakte'
-      mock_vkontakte_auth_hash
-
-      expect(page).to have_content 'Please, add your email for verify account'
-      fill_in 'Email', with: 'new@mail.com'
-      click_on 'Post'
-
-      open_email('new@mail.com')
-      current_email.click_link 'Confirm my account'
-
-      expect(page).to have_content 'Your email address has been successfully confirmed.'
-      click_on 'Sign in with vkontakte'
-
-      expect(current_path).to eq root_path
-      expect(page).to have_content 'Successfully authenticated from Vkontakte account.'
-    end
-
-    scenario 'User does not exist' do
-      visit new_user_session_path
-
-      click_on 'Sign in with vkontakte'
-      mock_vkontakte_auth_hash
-
-      expect(page).to have_content 'Please, add your email for verify account'
-      fill_in 'Email', with: 'new@mail.com'
-      click_on 'Post'
-
-      open_email('new@mail.com')
-      current_email.click_link 'Confirm my account'
-
-      expect(page).to have_content 'Your email address has been successfully confirmed.'
-      click_on 'Sign in with vkontakte'
-
-      expect(current_path).to eq root_path
-      expect(page).to have_content 'Successfully authenticated from Vkontakte account.'
-    end
+    it_behaves_like 'Registration with provider'
   end
 end

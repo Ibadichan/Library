@@ -8,7 +8,7 @@ RSpec.describe UsersController, type: :controller do
       patch :finish_sign_up, params: { id: @user.id, user: { email: 'test@example.com' } }
 
       @user.reload
-      expect(@user.unconfirmed_email).to eq 'test@example.com'
+      expect(assigns(:user).unconfirmed_email).to eq 'test@example.com'
     end
   end
 
