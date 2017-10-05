@@ -16,6 +16,16 @@ class OmniauthCallbacksController < Devise::OmniauthCallbacksController
     end
   end
 
+  def vkontakte
+    if @user.email_verified?
+      sign_in_and_redirect @user, event: :authentication
+      set_flash_message(:notice, :success, kind: 'Vkontakte') if is_navigational_format?
+    else
+      sign_in @user
+      redirect_to finish_sign_up_path(@user)
+    end
+  end
+
   private
 
   def set_user
