@@ -11,7 +11,6 @@ feature 'User can sign in and sign up with facebook', '
   scenario 'User has authorization' do
     user.authorizations.create(provider: mock_facebook_auth_hash.provider,
                                uid: mock_facebook_auth_hash.uid)
-
     visit new_user_session_path
 
     click_on 'Sign in with facebook'

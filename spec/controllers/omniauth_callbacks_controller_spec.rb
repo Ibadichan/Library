@@ -5,16 +5,9 @@ RSpec.describe OmniauthCallbacksController, type: :controller do
 
   describe 'GET #facebook' do
     before { request.env['omniauth.auth'] = mock_facebook_auth_hash }
+    let(:provider) { mock_facebook_auth_hash.provider.to_sym }
 
-    it 'calls method find_for_oauth of User' do
-      expect(User).to receive(:find_for_oauth).with(request.env['omniauth.auth']).and_call_original
-      get :facebook
-    end
-
-    it 'assigns user to @user' do
-      get :facebook
-      expect(assigns(:user)).to be_a(User)
-    end
+    it_behaves_like 'OAuthable'
 
     it 'redirects to root path' do
       get :facebook
@@ -24,6 +17,7 @@ RSpec.describe OmniauthCallbacksController, type: :controller do
 
   describe 'GET #twitter' do
     before { request.env['omniauth.auth'] = mock_twitter_auth_hash }
+    let(:provider) { mock_twitter_auth_hash.provider.to_sym }
 
     context 'Email is verified' do
       let(:user) { create(:user) }
@@ -32,21 +26,7 @@ RSpec.describe OmniauthCallbacksController, type: :controller do
                                uid: mock_twitter_auth_hash.uid, user: user)
       end
 
-      RSpec.shared_examples 'search and appointment of the user to @user' do
-        it 'calls method find_for_oauth of User' do
-          expect(User).to receive(:find_for_oauth).with(
-            request.env['omniauth.auth']
-          ).and_call_original
-          get :twitter
-        end
-
-        it 'assigns user to @user' do
-          get :twitter
-          expect(assigns(:user)).to be_a(User)
-        end
-      end
-
-      it_behaves_like 'search and appointment of the user to @user'
+      it_behaves_like 'OAuthable'
 
       it 'redirects to root path' do
         get :twitter
@@ -55,7 +35,7 @@ RSpec.describe OmniauthCallbacksController, type: :controller do
     end
 
     context 'Email is not verified' do
-      it_behaves_like 'search and appointment of the user to @user'
+      it_behaves_like 'OAuthable'
 
       it 'redirects to finish sign up path' do
         get :twitter
@@ -66,6 +46,7 @@ RSpec.describe OmniauthCallbacksController, type: :controller do
 
   describe 'GET #vkontakte' do
     before { request.env['omniauth.auth'] = mock_vkontakte_auth_hash }
+    let(:provider) { mock_vkontakte_auth_hash.provider.to_sym }
 
     context 'Email is verified' do
       let(:user) { create(:user) }
@@ -74,21 +55,7 @@ RSpec.describe OmniauthCallbacksController, type: :controller do
                                uid: mock_vkontakte_auth_hash.uid, user: user)
       end
 
-      RSpec.shared_examples 'search and appointment of the user to @user' do
-        it 'calls method find_for_oauth of User' do
-          expect(User).to receive(:find_for_oauth).with(
-            request.env['omniauth.auth']
-          ).and_call_original
-          get :vkontakte
-        end
-
-        it 'assigns user to @user' do
-          get :vkontakte
-          expect(assigns(:user)).to be_a(User)
-        end
-      end
-
-      it_behaves_like 'search and appointment of the user to @user'
+      it_behaves_like 'OAuthable'
 
       it 'redirects to root path' do
         get :vkontakte
@@ -97,7 +64,7 @@ RSpec.describe OmniauthCallbacksController, type: :controller do
     end
 
     context 'Email is not verified' do
-      it_behaves_like 'search and appointment of the user to @user'
+      it_behaves_like 'OAuthable'
 
       it 'redirects to finish sign up path' do
         get :vkontakte
