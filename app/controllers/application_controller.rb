@@ -6,12 +6,18 @@ class ApplicationController < ActionController::Base
 
   protect_from_forgery with: :exception
 
+  before_action :authenticate_user!, unless: :devise_controller?
   before_action :configure_permitted_parameters, if: :devise_controller?
   before_action :ensure_sign_up_complete, unless: :devise_controller?
+  check_authorization unless: :devise_controller?
 
   def ensure_sign_up_complete
     return if action_name == 'finish_sign_up' || !current_user
     redirect_to finish_sign_up_path(current_user) unless current_user.email_verified?
+  end
+
+  rescue_from CanCan::AccessDenied do |exception|
+    redirect_to root_url, alert: exception.message
   end
 
   protected

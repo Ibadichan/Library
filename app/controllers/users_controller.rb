@@ -1,6 +1,9 @@
 class UsersController < ApplicationController
+  load_and_authorize_resource
+
+  def show; end
+
   def finish_sign_up
-    @user = User.find(params[:id])
     @user.update(email: user_params[:email]) if request.patch? && user_params[:email]
   end
 

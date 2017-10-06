@@ -1,0 +1,13 @@
+.container
+  h1 Profile
+  br
+  .info
+    h4
+      | My Email:
+      |      #{@user.email}
+    br
+    h4
+      | My Name:
+      |      #{@user.name}
+    br
+  = button_to 'Edit', edit_user_registration_path, class: 'btn btn-primary', method: :get

@@ -8,6 +8,7 @@ end
 gem 'bcrypt', '~> 3.1.7'
 gem 'bootstrap', '~> 4.0.0.beta'
 gem 'bootstrap-social-rails'
+gem 'cancancan'
 gem 'capybara-email'
 gem 'coffee-rails', '~> 4.2'
 gem 'devise'
