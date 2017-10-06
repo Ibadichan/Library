@@ -7,14 +7,15 @@ html
     = stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload'
     = javascript_include_tag 'application', 'data-turbolinks-track': 'reload'
   body
-    nav.navbar.navbar-dark.bg-dark
-      = link_to 'Library', '', class: 'navbar-brand'
-
-      - if user_signed_in?
-        = link_to 'Sign out', destroy_user_session_path, method: :delete, class: 'btn btn-dark navbar-btn'
-      - else
-        = link_to 'Sign in', new_user_session_path, class: 'btn btn-dark navbar-btn'
-
+    nav.navbar.navbar-expand-sm.navbar-dark.bg-dark
+      = link_to 'Library', root_path, class: 'navbar-brand'
+      #nav-content.collapse.navbar-collapse.justify-content-end
+        ul.navbar-nav
+          - if user_signed_in?
+            li = link_to 'My account', '', class: 'nav-link'
+            li = link_to 'Sign out', destroy_user_session_path, method: :delete, class: 'nav-link'
+          - else
+            li = link_to 'Sign in', new_user_session_path, class: 'nav-link'
     .container
       p.notice = notice
       p.alert = alert

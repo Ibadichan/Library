@@ -2,6 +2,7 @@ require 'rails_helper'
 
 RSpec.describe User, type: :model do
   it { should have_many(:authorizations).dependent(:destroy) }
+  it { should validate_presence_of :name }
 
   describe '#email_verified?' do
     let(:user)      { create(:user) }
@@ -53,12 +54,14 @@ RSpec.describe User, type: :model do
         context 'Email is given' do
           let(:auth) do
             OmniAuth::AuthHash.new(provider: 'facebook', uid: '123456',
-                                   info: { email: 'new@mail.com' })
+                                   info: { email: 'new@mail.com', name: 'Ivan' })
           end
 
           it 'creates a new user' do
             expect { User.find_for_oauth(auth) }.to change(User, :count).by(1)
-            expect(User.find_for_oauth(auth).email).to eq auth.info.email
+            user = User.find_for_oauth(auth)
+            expect(user.email).to eq auth.info.email
+            expect(user.name).to eq auth.info.name
           end
 
           RSpec.shared_examples 'the create authorization and return user' do
@@ -78,12 +81,15 @@ RSpec.describe User, type: :model do
         end
 
         context 'Email is not given' do
-          let(:auth) { OmniAuth::AuthHash.new(provider: 'facebook', uid: '123456', info: {}) }
+          let(:auth) do
+            OmniAuth::AuthHash.new(provider: 'facebook', uid: '123456', info: { name: 'Ivan' })
+          end
 
           it 'creates a new user with fake email' do
             expect { User.find_for_oauth(auth) }.to change(User, :count).by(1)
-            expect(User.find_for_oauth(auth).email)
-              .to eq "change@me-#{auth.uid}-#{auth.provider}.com"
+            user = User.find_for_oauth(auth)
+            expect(user.email).to eq "change@me-#{auth.uid}-#{auth.provider}.com"
+            expect(user.name).to eq auth.info.name
           end
 
           it_behaves_like 'the create authorization and return user'
