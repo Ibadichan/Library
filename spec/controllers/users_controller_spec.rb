@@ -18,4 +18,11 @@ RSpec.describe UsersController, type: :controller do
       expect(response).to render_template 'finish_sign_up'
     end
   end
+
+  describe 'GET #show' do
+    it 'renders show template' do
+      get :show, params: { id: @user.id }
+      expect(response).to render_template 'show'
+    end
+  end
 end

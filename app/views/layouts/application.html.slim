@@ -12,7 +12,7 @@ html
       #nav-content.collapse.navbar-collapse.justify-content-end
         ul.navbar-nav
           - if user_signed_in?
-            li = link_to 'My account', '', class: 'nav-link'
+            li = link_to 'My account', current_user, class: 'nav-link'
             li = link_to 'Sign out', destroy_user_session_path, method: :delete, class: 'nav-link'
           - else
             li = link_to 'Sign in', new_user_session_path, class: 'nav-link'
