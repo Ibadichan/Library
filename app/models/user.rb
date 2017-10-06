@@ -8,6 +8,8 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :trackable, :validatable,
          :confirmable, :omniauthable, omniauth_providers: %i[facebook twitter vkontakte]
 
+  validates :name, presence: true
+
   def self.find_for_oauth(auth)
     authorization = Authorization.where(provider: auth.provider, uid: auth.uid.to_s).first
     return authorization.user if authorization
@@ -17,7 +19,7 @@ class User < ApplicationRecord
 
     unless user
       user = User.new(email: email ? email : "change@me-#{auth.uid}-#{auth.provider}.com",
-                      password: Devise.friendly_token[0, 20])
+                      password: Devise.friendly_token[0, 20], name: auth.info.name)
       user.skip_confirmation!
       user.save!
     end

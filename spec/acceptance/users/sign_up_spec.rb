@@ -9,6 +9,7 @@ feature 'User can sign up', '
   scenario 'User tries to register' do
     visit new_user_registration_path
 
+    fill_in 'Name', with: 'Ivan'
     fill_in 'Email', with: 'test@example.com'
     fill_in 'Password', with: '123456'
     fill_in 'Password confirmation', with: '123456'
