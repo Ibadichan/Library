@@ -9,6 +9,7 @@ feature 'User can sign up', '
   scenario 'User tries to register' do
     visit new_user_registration_path
 
+    attach_file 'Avatar', "#{Rails.root}/.rspec"
     fill_in 'Name', with: 'Ivan'
     fill_in 'Email', with: 'test@example.com'
     fill_in 'Password', with: '123456'
