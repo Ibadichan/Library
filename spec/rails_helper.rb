@@ -9,6 +9,7 @@ require 'capybara/email/rspec'
 require 'cancan/matchers'
 
 Dir[Rails.root.join('spec/support/**/*.rb')].each { |f| require f }
+Dir["#{Rails.root}/app/uploaders/*.rb"].each { |file| require file }
 
 ActiveRecord::Migration.maintain_test_schema!
 
@@ -26,4 +27,8 @@ RSpec.configure do |config|
   config.filter_rails_from_backtrace!
 
   OmniAuth.config.test_mode = true
+
+  config.after(:all) do
+    FileUtils.rm_rf(Dir["#{Rails.root}/spec/support/uploads"]) if Rails.env.test?
+  end
 end

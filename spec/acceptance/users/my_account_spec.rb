@@ -21,5 +21,6 @@ feature 'User can see own account', '
     expect(current_path).to eq user_path(user)
     expect(page).to have_content user.email
     expect(page).to have_content user.name
+    expect(find('#user-avatar')['src']).to have_content user.avatar.url
   end
 end

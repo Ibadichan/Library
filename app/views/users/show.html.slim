@@ -2,6 +2,9 @@
   h1 Profile
   br
   .info
+    = image_tag(@user.avatar.url, id: 'user-avatar', class: 'img-thumbnail', style: 'width: 304px; height: 236px;')
+    br
+    br
     h4
       | My Email:
       |      #{@user.email}
@@ -10,4 +13,4 @@
       | My Name:
       |      #{@user.name}
     br
-  = button_to 'Edit', edit_user_registration_path, class: 'btn btn-primary', method: :get
+  = button_to 'Edit Profile', edit_user_registration_path, class: 'btn btn-primary', method: :get
