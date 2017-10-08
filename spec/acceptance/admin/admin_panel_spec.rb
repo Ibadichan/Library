@@ -1,30 +1,27 @@
 require 'acceptance/acceptance_helper'
 
-feature 'Admin can see admin panel', '
+feature 'Admin can sees admin panel', '
   In order to manage app
   As an administrator
   I want to see admin panel
 ' do
 
-  given(:user)  { create(:user, admin: false) }
-  given(:admin) { create(:user, admin: true)  }
+  given(:not_admin)  { create(:user, admin: false) }
+  given(:admin)      { create(:user, admin: true)  }
 
   scenario 'Guest tries to see panel' do
     visit root_path
     expect(page).to have_no_link 'Admin Panel'
   end
 
-  scenario 'User tries to see panel' do
-    sign_in user
+  scenario 'Not-admin tries to see panel' do
+    sign_in not_admin
 
-    visit root_path
     expect(page).to have_no_link 'Admin Panel'
   end
 
-  scenario 'Admin tries see panel' do
+  scenario 'Admin tries to see panel' do
     sign_in admin
-
-    visit root_path
 
     click_on 'Admin Panel'
 
