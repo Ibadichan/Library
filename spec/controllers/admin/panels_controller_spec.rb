@@ -5,13 +5,13 @@ RSpec.describe Admin::PanelsController, type: :controller do
     before do
       @request.env['devise.mapping'] = Devise.mappings[:user]
       sign_in user
+      get :show
     end
 
     context 'Admin tries to see panel' do
       let(:user) { create(:user, admin: true) }
 
       it 'renders show template' do
-        get :show
         expect(response).to render_template 'show'
       end
     end
@@ -20,7 +20,6 @@ RSpec.describe Admin::PanelsController, type: :controller do
       let(:user) { create(:user, admin: false) }
 
       it 'redirects to root path' do
-        get :show
         expect(response).to redirect_to root_path
       end
     end
