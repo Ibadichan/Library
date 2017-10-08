@@ -4,7 +4,7 @@ class UsersController < ApplicationController
   def show; end
 
   def finish_sign_up
-    @user.update(email: user_params[:email]) if request.patch? && user_params[:email]
+    respond_with @user.update(email: user_params[:email]) if request.patch? && user_params[:email]
   end
 
   private
