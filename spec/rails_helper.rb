@@ -22,11 +22,11 @@ RSpec.configure do |config|
 
   config.fixture_path = "#{::Rails.root}/spec/fixtures"
 
+  OmniAuth.config.test_mode = true
+
   config.use_transactional_fixtures = true
   config.infer_spec_type_from_file_location!
   config.filter_rails_from_backtrace!
-
-  OmniAuth.config.test_mode = true
 
   config.after(:all) do
     FileUtils.rm_rf(Dir["#{Rails.root}/spec/support/uploads"]) if Rails.env.test?
