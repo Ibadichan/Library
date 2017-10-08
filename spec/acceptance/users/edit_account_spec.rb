@@ -37,7 +37,7 @@ feature 'User can edit own profile', '
 
     expect(user.email).to eq 'new@gmail.com'
     expect(user.name).to eq 'NewName'
-    expect(user.avatar.url).to eq "#{Rails.root}/spec/support/uploads/user/avatar/2/Gemfile"
+    expect(user.avatar.url).to eq "#{Rails.root}/spec/support/uploads/user/avatar/#{user.id}/Gemfile"
     expect(user.valid_password?('1234567')).to eq true
   end
 end

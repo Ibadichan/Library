@@ -5,5 +5,10 @@ Rails.application.routes.draw do
                                      via: %i[get patch], as: :finish_sign_up
 
   resources :users, only: %i[show]
+
+  namespace :admin do
+    root to: 'panels#show'
+  end
+
   root to: 'searches#show'
 end
