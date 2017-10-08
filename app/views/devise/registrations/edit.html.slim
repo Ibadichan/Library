@@ -2,9 +2,11 @@ h2 style="margin-left: 15px; margin-bottom: 15px;"
   | Edit #{resource_name.to_s.humanize}
 = form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put, class: 'form-horizontal' }) do |f|
   = devise_error_messages!
+  = image_tag(current_user.avatar.url, id: 'user-avatar', class: 'img-thumbnail', style: 'width: 304px; height: 236px;')
   .form-group
-    = image_tag(current_user.avatar.url, id: 'user-avatar', class: 'img-thumbnail', style: 'width: 304px; height: 236px;')
-    = f.file_field :avatar, style: 'margin-left: 10px;'
+    = f.label :avatar, class: 'col-sm-2 control-label'
+    .col-sm-6
+      = f.file_field :avatar
   .form-group
     = f.label :name, class: 'col-sm-2 control-label'
     .col-sm-6
