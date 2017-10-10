@@ -32,7 +32,7 @@ RSpec.describe Admin::UsersController, type: :controller do
 
       it 'redirects to admin panel' do
         post :create, params: { user: attributes_for(:user, avatar: avatar) }
-        expect(response).to redirect_to admin_root_path
+        expect(response).to redirect_to admin_users_path
       end
     end
 
@@ -47,6 +47,13 @@ RSpec.describe Admin::UsersController, type: :controller do
         post :create, params: { user: attributes_for(:invalid_user) }
         expect(response).to render_template 'new'
       end
+    end
+  end
+
+  describe 'GET #index' do
+    it 'renders index template' do
+      get :index
+      expect(response).to render_template 'index'
     end
   end
 end
