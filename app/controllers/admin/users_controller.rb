@@ -6,13 +6,11 @@ class Admin::UsersController < Admin::BaseController
   def create
     @user = User.new(user_params)
     @user.skip_confirmation!
-
-    if @user.save
-      redirect_to admin_root_path, notice: 'User is created.'
-    else
-      render :new
-    end
+    @user.save
+    respond_with @user, location: -> { admin_users_path }
   end
+
+  def index; end
 
   private
 

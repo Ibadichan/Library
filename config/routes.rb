@@ -7,7 +7,7 @@ Rails.application.routes.draw do
   resources :users, only: %i[show]
 
   namespace :admin do
-    resources :users, only: %i[new create]
+    resources :users, only: %i[new create index]
     root to: 'panels#show'
   end
 
