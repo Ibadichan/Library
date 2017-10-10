@@ -1,0 +1,10 @@
+table.table.table-bordered.table-hover
+  thead
+    tr
+      - User::ATTRIBUTES.each do |attr|
+        th = attr
+  tbody
+    - @users.each do |user|
+      tr
+        - User::ATTRIBUTES.each do |attr|
+          th = user.send(attr.to_sym)

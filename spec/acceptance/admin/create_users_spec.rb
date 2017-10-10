@@ -11,9 +11,7 @@ feature 'Admin can create user', '
   describe 'Admin tries to create user' do
     before do
       sign_in admin
-      click_on 'Admin Panel'
-      click_on 'Users'
-      click_on 'Create User'
+      visit new_admin_user_path
     end
 
     scenario 'with valid attributes' do
