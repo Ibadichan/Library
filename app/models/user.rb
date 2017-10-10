@@ -1,7 +1,9 @@
 class User < ApplicationRecord
+  ATTRIBUTES = %w[id name email].freeze
   TEMP_EMAIL_REGEX = /\Achange@me/
 
   mount_uploader :avatar, AvatarUploader
+  paginates_per 10
 
   has_many :authorizations, dependent: :destroy
 
