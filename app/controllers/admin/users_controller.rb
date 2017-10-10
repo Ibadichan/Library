@@ -1,4 +1,9 @@
 class Admin::UsersController < Admin::BaseController
+  def index
+    @q = User.ransack(params[:q])
+    @users = @q.result(distinct: true).order(id: :asc).page params[:page]
+  end
+
   def new
     respond_with @user = User.new
   end
@@ -9,8 +14,6 @@ class Admin::UsersController < Admin::BaseController
     @user.save
     respond_with @user, location: -> { admin_users_path }
   end
-
-  def index; end
 
   private
 
