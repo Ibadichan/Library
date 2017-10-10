@@ -12,6 +12,7 @@ feature 'Admin can create user', '
     before do
       sign_in admin
       click_on 'Admin Panel'
+      click_on 'Users'
       click_on 'Create User'
     end
 
@@ -23,8 +24,8 @@ feature 'Admin can create user', '
       fill_in 'Password confirmation', with: '123456'
       click_on 'Create'
 
-      expect(page).to have_content 'User is created.'
-      expect(current_path).to eq admin_root_path
+      expect(page).to have_content 'User was successfully created.'
+      expect(current_path).to eq admin_users_path
     end
 
     scenario 'with invalid attributes' do
