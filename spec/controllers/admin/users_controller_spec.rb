@@ -56,4 +56,22 @@ RSpec.describe Admin::UsersController, type: :controller do
       expect(response).to render_template 'index'
     end
   end
+
+  describe 'PATCH #block' do
+    let(:not_admin) { create(:user, blocked: false) }
+    before { patch :block, params: { id: not_admin.id, format: :js } }
+
+    it 'assigns the requested user to @user' do
+      expect(assigns(:user)).to eq not_admin
+    end
+
+    it "sets true to the field 'blocked' of user" do
+      not_admin.reload
+      expect(not_admin.blocked).to eq true
+    end
+
+    it 'renders block js view' do
+      expect(response).to render_template 'block'
+    end
+  end
 end
