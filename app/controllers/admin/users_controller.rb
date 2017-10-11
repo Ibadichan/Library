@@ -15,6 +15,11 @@ class Admin::UsersController < Admin::BaseController
     respond_with @user, location: -> { admin_users_path }
   end
 
+  def block
+    @user = User.find(params[:id])
+    respond_with @user.update(blocked: true)
+  end
+
   private
 
   def user_params
