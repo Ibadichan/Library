@@ -9,6 +9,12 @@ table.table.table-bordered.table-hover
       tr
         - User::ATTRIBUTES.each do |attr|
           td = user.send(attr.to_sym)
-        td = link_to 'Block User', block_admin_user_path(user),
-                                   class: 'btn btn-danger block-user',
-                                   method: :patch, remote: true, data: { user_id: user.id }
+
+        - if user.admin?
+          td User is admin
+        - elsif user.blocked?
+          td = link_to 'Unblock User', unblock_admin_user_path(user),
+                  class: 'btn btn-success unblock-user', data: {user_id: user.id}
+        - else
+          td = link_to 'Block User', block_admin_user_path(user),
+                  class: 'btn btn-danger block-user', data: { user_id: user.id }

@@ -1,4 +1,6 @@
 class Admin::UsersController < Admin::BaseController
+  before_action :load_user, only: %i[block unblock]
+
   def index
     @q = User.ransack(params[:q])
     @users = @q.result(distinct: true).order(id: :asc).page params[:page]
@@ -16,11 +18,18 @@ class Admin::UsersController < Admin::BaseController
   end
 
   def block
-    @user = User.find(params[:id])
-    respond_with @user.update(blocked: true)
+    respond_with @user.update(blocked: true), json: @user
+  end
+
+  def unblock
+    respond_with @user.update(blocked: false), json: @user
   end
 
   private
+
+  def load_user
+    @user = User.find(params[:id])
+  end
 
   def user_params
     params.require(:user).permit(:avatar, :name, :email, :password, :password_confirmation)
