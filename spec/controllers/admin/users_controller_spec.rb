@@ -59,7 +59,7 @@ RSpec.describe Admin::UsersController, type: :controller do
 
   describe 'PATCH #block' do
     let(:not_admin) { create(:user, blocked: false) }
-    before { patch :block, params: { id: not_admin.id, format: :js } }
+    before { patch :block, params: { id: not_admin.id, format: :json } }
 
     it 'assigns the requested user to @user' do
       expect(assigns(:user)).to eq not_admin
@@ -70,8 +70,28 @@ RSpec.describe Admin::UsersController, type: :controller do
       expect(not_admin.blocked).to eq true
     end
 
-    it 'renders block js view' do
-      expect(response).to render_template 'block'
+    it 'responds with json of user' do
+      not_admin.reload
+      expect(response.body).to be_json_eql(not_admin.to_json)
+    end
+  end
+
+  describe 'PATCH #unblock' do
+    let(:not_admin) { create(:user, blocked: true) }
+    before { patch :unblock, params: { id: not_admin.id, format: :json } }
+
+    it 'assigns the requested user to @user' do
+      expect(assigns(:user)).to eq not_admin
+    end
+
+    it "sets false to the field 'blocked' of user" do
+      not_admin.reload
+      expect(not_admin.blocked).to eq false
+    end
+
+    it 'responds with json of user' do
+      not_admin.reload
+      expect(response.body).to be_json_eql(not_admin.to_json)
     end
   end
 end

@@ -7,7 +7,7 @@ feature 'Admin can block users', '
 ' do
 
   given(:admin) { create(:user, admin: true) }
-  given(:user) { create(:user) }
+  given!(:user) { create(:user, blocked: false) }
 
   scenario 'Admin tries to block users', js: true do
     sign_in admin

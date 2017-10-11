@@ -8,7 +8,7 @@ Rails.application.routes.draw do
 
   namespace :admin do
     resources :users, only: %i[new create index] do
-      patch :block, on: :member
+      patch :block, :unblock, on: :member
     end
 
     root to: 'panels#show'

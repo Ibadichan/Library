@@ -1,6 +1,0 @@
-var link = $('a.block-user[data-user-id="<%= @user.id %>"]');
-
-link.text('Unblock User');
-link.attr("href", "/admin/users/<%= @user.id %>/unblock");
-link.removeClass('btn-danger');
-link.addClass('btn-success');
