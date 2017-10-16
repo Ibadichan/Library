@@ -4,6 +4,6 @@ class SearchesController < ApplicationController
   skip_authorization_check
 
   def show
-    render 'searches/welcome'
+    respond_with @books = Search.find_book(params[:query]) if params[:query].present?
   end
 end

@@ -1,0 +1,19 @@
+.row
+  .col-2
+    - if item['volumeInfo']['imageLinks']
+      - item['volumeInfo']['imageLinks'].each do |key, value|
+        - if key == 'thumbnail'
+          img src="#{value}"
+  .col-10
+    p = "#{item['volumeInfo']['title']} (#{item['volumeInfo']['publishedDate']})"
+    - if item['volumeInfo']['authors']
+      p = "Authors: #{item['volumeInfo']['authors'].join(', ')}"
+    - if item['volumeInfo']['description']
+      p = item['volumeInfo']['description']
+    - if item['volumeInfo']['infoLink']
+      = link_to 'Additional information', item['volumeInfo']['infoLink']
+      br
+    - if item['saleInfo']['buyLink']
+      = link_to 'Buy this book', item['saleInfo']['buyLink']
+br
+hr
