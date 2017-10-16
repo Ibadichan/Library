@@ -5,6 +5,7 @@ Rails.application.routes.draw do
                                      via: %i[get patch], as: :finish_sign_up
 
   resources :users, only: %i[show]
+  resource :search, only: :show
 
   namespace :admin do
     resources :users, only: %i[new create index] do

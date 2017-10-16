@@ -32,6 +32,7 @@ gem 'rails-controller-testing'
 gem 'ransack', github: 'activerecord-hackery/ransack'
 gem 'redis', '~> 3.0'
 gem 'responders', '~> 2.0'
+gem 'rest-client'
 gem 'rubocop', require: false
 gem 'sass-rails', '~> 5.0'
 gem 'slim-rails'
