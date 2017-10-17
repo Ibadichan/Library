@@ -5,6 +5,8 @@ require File.expand_path('../../config/environment', __FILE__)
 abort('The Rails environment is running in production mode!') if Rails.env.production?
 
 require 'rspec/rails'
+require 'webmock/rspec'
+WebMock.allow_net_connect!
 require 'capybara/email/rspec'
 require 'cancan/matchers'
 
