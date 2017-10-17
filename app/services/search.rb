@@ -1,7 +1,7 @@
 class Search
   def self.find_book(query)
     encoded_url = URI.encode("https://www.googleapis.com/books/v1/volumes?q=#{query}")
-    response = RestClient::Request.execute(method: :get, url: encoded_url)
+    response = RestClient.get encoded_url
     JSON.parse(response.body)
   end
 end
