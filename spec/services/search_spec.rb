@@ -14,7 +14,7 @@ RSpec.describe Search do
     it 'returns json' do
       stub_request(:get, "https://www.googleapis.com/books/v1/volumes?q=#{query}")
         .to_return(status: 200, body: object)
-      expect(Search.find_book(query)).to be_a(Hash)
+      expect(Search.find_book(query)).to eq JSON.parse(object)
     end
   end
 end
