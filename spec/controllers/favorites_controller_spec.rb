@@ -57,4 +57,21 @@ RSpec.describe FavoritesController, type: :controller do
       expect(response).to render_template 'index'
     end
   end
+
+  describe 'DELETE #destroy' do
+    let(:book) { create(:book) }
+
+    before { @user.books << book }
+
+    it 'deletes book' do
+      expect do
+        delete :destroy, params: { user_id: @user, id: book, format: :js }
+      end.to change(@user.books, :count).by(-1)
+    end
+
+    it 'renders template destroy' do
+      delete :destroy, params: { user_id: @user, id: book, format: :js }
+      expect(response).to render_template 'destroy'
+    end
+  end
 end

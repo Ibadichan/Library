@@ -27,12 +27,12 @@ class Ability
     can :read, User, id: user.id
     can :finish_sign_up, User, id: user.id
     can :add_in_favorites, [Book] { |book| user_find_book(book).blank? }
-    can :read, [Book] { |book| user_find_book(book).present? }
+    can :delete, [Book] { |book| user_find_book(book) }
   end
 
   private
 
   def user_find_book(book)
-    user.books.find_by(id: book.id)
+    user.books.find_by_id(book.id)
   end
 end
