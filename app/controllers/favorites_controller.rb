@@ -1,15 +1,21 @@
 class FavoritesController < ApplicationController
   before_action :set_book, only: %i[create]
+  skip_authorization_check only: %i[index]
 
   def index
     @books = current_user.books.page params[:page]
-    @books.each { |book| authorize! :read, book }
     respond_with @books
   end
 
   def create
     authorize! :add_in_favorites, @book
     respond_with current_user.books << @book
+  end
+
+  def destroy
+    @book = Book.find(params[:id])
+    authorize! :delete, @book
+    respond_with @book.destroy
   end
 
   private

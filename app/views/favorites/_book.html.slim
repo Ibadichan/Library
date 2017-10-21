@@ -1,4 +1,4 @@
-.row.book
+.row.book data-book-id="#{book.id}"
   .col-2
     - if response['items'][0]['volumeInfo']['imageLinks'].present?
       img src="#{response['items'][0]['volumeInfo']['imageLinks']['thumbnail']}"
@@ -13,5 +13,9 @@
       br
     - if response['items'][0]['saleInfo']['buyLink']
       = link_to 'Buy this book', response['items'][0]['saleInfo']['buyLink']
+      br
+    - if can?(:delete, book)
+      = link_to 'Delete', user_favorite_path(current_user, book),
+                          class: 'btn btn-danger', remote: true, method: :delete
 br
 hr
