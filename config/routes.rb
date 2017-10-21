@@ -4,7 +4,10 @@ Rails.application.routes.draw do
   match '/users/:id/finish_sign_up', to: 'users#finish_sign_up',
                                      via: %i[get patch], as: :finish_sign_up
 
-  resources :users, only: %i[show]
+  resources :users, only: %i[show] do
+    resources :favorites, only: %i[index create destroy]
+  end
+
   resource :search, only: :show
 
   namespace :admin do

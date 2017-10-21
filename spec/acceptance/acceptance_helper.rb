@@ -3,7 +3,6 @@ require 'rails_helper'
 RSpec.configure do |config|
   Capybara.server = :puma
   Capybara.javascript_driver = :webkit
-  WebMock.allow_net_connect!
 
   config.include WaitForAjax, type: :feature
   config.include AcceptanceMacros, type: :feature
