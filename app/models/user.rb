@@ -6,6 +6,8 @@ class User < ApplicationRecord
   paginates_per 10
 
   has_many :authorizations, dependent: :destroy
+  has_many :users_books, dependent: :destroy
+  has_many :books, through: :users_books
 
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
