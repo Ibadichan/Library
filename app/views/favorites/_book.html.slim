@@ -1,0 +1,17 @@
+.row.book
+  .col-2
+    - if response['items'][0]['volumeInfo']['imageLinks'].present?
+      img src="#{response['items'][0]['volumeInfo']['imageLinks']['thumbnail']}"
+  .col-10
+    p = "#{response['items'][0]['volumeInfo']['title']} (#{response['items'][0]['volumeInfo']['publishedDate']})"
+    - if response['items'][0]['volumeInfo']['authors']
+      p = "Authors: #{response['items'][0]['volumeInfo']['authors'].join(', ')}"
+    - if response['items'][0]['volumeInfo']['description']
+      p = response['items'][0]['volumeInfo']['description'].truncate(100)
+    - if response['items'][0]['volumeInfo']['infoLink']
+      = link_to 'Additional information', response['items'][0]['volumeInfo']['infoLink']
+      br
+    - if response['items'][0]['saleInfo']['buyLink']
+      = link_to 'Buy this book', response['items'][0]['saleInfo']['buyLink']
+br
+hr

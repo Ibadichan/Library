@@ -1,1 +1,5 @@
-p hello
+h1 Your Favorites:
+br
+- @books.each do |book|
+  = render 'favorites/book', response: Search.find_book(book.google_book_id)
+= paginate @books, theme: 'twitter-bootstrap-4'

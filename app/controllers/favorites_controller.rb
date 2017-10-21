@@ -2,7 +2,7 @@ class FavoritesController < ApplicationController
   before_action :set_book, only: %i[create]
 
   def index
-    @books = current_user.books
+    @books = current_user.books.page params[:page]
     @books.each { |book| authorize! :read, book }
     respond_with @books
   end
