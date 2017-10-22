@@ -6,6 +6,7 @@ Rails.application.routes.draw do
 
   resources :users, only: %i[show] do
     resources :favorites, only: %i[index create destroy]
+    resources :plans
   end
 
   resource :search, only: :show

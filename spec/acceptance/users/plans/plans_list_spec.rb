@@ -18,9 +18,10 @@ feature 'User can see own plans', '
   scenario 'Authenticated user tries to see Plans' do
     sign_in user
 
-    click_on 'Plans'
+    click_on 'My Plans'
 
     expect(page).to have_content 'Your Plans:'
     expect(page).to have_link plan.title
+    expect(page).to have_content plan.description
   end
 end
