@@ -32,6 +32,7 @@ ActiveRecord::Schema.define(version: 20_171_022_184_555) do
 
   create_table 'plans', force: :cascade do |t|
     t.string 'title'
+    t.string 'description'
     t.bigint 'user_id'
     t.datetime 'created_at', null: false
     t.datetime 'updated_at', null: false

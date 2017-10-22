@@ -1,0 +1,9 @@
+h1 Your Plans:
+br
+.card-deck
+  - @plans.each do |plan|
+    .card
+      .card-body
+        h4 = link_to plan.title, ''
+        p.card-text = plan.description.truncate(100)
+        /a.btn.btn-primary href="#"  Go somewhere

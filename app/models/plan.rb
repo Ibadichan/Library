@@ -4,5 +4,5 @@ class Plan < ApplicationRecord
   has_many :plans_books, dependent: :destroy
   has_many :books, through: :plans_books
 
-  validates :title, presence: true
+  validates :title, :description, presence: true
 end
