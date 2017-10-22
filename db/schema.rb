@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20_171_020_175_457) do
+ActiveRecord::Schema.define(version: 20_171_022_184_555) do
   # These are extensions that must be enabled in order to support this database
   enable_extension 'plpgsql'
 
@@ -28,6 +28,21 @@ ActiveRecord::Schema.define(version: 20_171_020_175_457) do
     t.string 'google_book_id'
     t.datetime 'created_at', null: false
     t.datetime 'updated_at', null: false
+  end
+
+  create_table 'plans', force: :cascade do |t|
+    t.string 'title'
+    t.bigint 'user_id'
+    t.datetime 'created_at', null: false
+    t.datetime 'updated_at', null: false
+    t.index ['user_id'], name: 'index_plans_on_user_id'
+  end
+
+  create_table 'plans_books', force: :cascade do |t|
+    t.bigint 'plan_id'
+    t.bigint 'book_id'
+    t.index ['book_id'], name: 'index_plans_books_on_book_id'
+    t.index ['plan_id'], name: 'index_plans_books_on_plan_id'
   end
 
   create_table 'users', force: :cascade do |t|

@@ -4,8 +4,11 @@ RSpec.describe User, type: :model do
   it { should have_many(:authorizations).dependent(:destroy) }
   it { should validate_presence_of :name }
   it { should validate_presence_of :avatar }
+
   it { should have_many(:users_books).dependent(:destroy) }
   it { should have_many(:books).through(:users_books) }
+
+  it { should have_many(:plans).dependent(:destroy) }
 
   describe '#email_verified?' do
     let(:user)      { create(:user) }
