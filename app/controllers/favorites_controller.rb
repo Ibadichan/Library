@@ -14,7 +14,7 @@ class FavoritesController < ApplicationController
 
   def destroy
     @book = Book.find(params[:id])
-    authorize! :delete, @book
+    authorize! :destroy, @book
     respond_with @book.destroy
   end
 

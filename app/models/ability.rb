@@ -26,13 +26,13 @@ class Ability
 
     can :read, User, id: user.id
     can :finish_sign_up, User, id: user.id
-    can :add_in_favorites, [Book] { |book| user_find_book(book).blank? }
-    can :delete, [Book] { |book| user_find_book(book) }
+    can :add_in_favorites, [Book] { |book| user_finds(book).blank? }
+    can :destroy, [Book, Plan] { |object| user_finds(object) }
   end
 
   private
 
-  def user_find_book(book)
-    user.books.find_by_id(book.id)
+  def user_finds(object)
+    user.send(object.class.name.underscore.pluralize).find_by_id(object.id)
   end
 end

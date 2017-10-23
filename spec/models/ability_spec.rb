@@ -29,11 +29,14 @@ RSpec.describe Ability do
     it { should_not be_able_to :finish_sign_up, create(:user), user: user }
 
     it { should be_able_to :add_in_favorites, create(:book), user: user }
-    it { should_not be_able_to :delete, create(:book), user: user }
+    it { should_not be_able_to :destroy, create(:book), user: user }
+
+    it { should be_able_to :destroy, create(:plan, user: user), user: user }
+    it { should_not be_able_to :destroy, create(:plan), user: user }
 
     before { user.books << book }
 
     it { should_not be_able_to :add_in_favorites, book, user: user }
-    it { should be_able_to :delete, book, user: user }
+    it { should be_able_to :destroy, book, user: user }
   end
 end
