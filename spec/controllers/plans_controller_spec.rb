@@ -16,4 +16,19 @@ RSpec.describe PlansController, type: :controller do
       expect(response).to render_template 'index'
     end
   end
+
+  describe 'DELETE #destroy' do
+    let!(:plan) { create(:plan, user: @user) }
+
+    it 'destroys plan of user' do
+      expect do
+        delete :destroy, params: { user_id: @user, id: plan, format: :js }
+      end.to change(@user.plans, :count).by(-1)
+    end
+
+    it 'renders template destroy' do
+      delete :destroy, params: { user_id: @user, id: plan, format: :js }
+      expect(response).to render_template 'destroy'
+    end
+  end
 end
