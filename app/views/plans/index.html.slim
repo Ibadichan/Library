@@ -1,9 +1,11 @@
 h1 Your Plans:
 br
+= link_to 'Add new Plan', new_user_plan_path(current_user), class: 'btn btn-primary'
+br
 .card-deck
   - @plans.each do |plan|
     .card { data-plan-id = plan.id }
       .card-body
-        h4 = link_to plan.title, ''
+        h4 = link_to plan.title, [current_user, plan]
         p.card-text = plan.description.truncate(100)
       = link_to 'Delete', [current_user, plan], class: 'btn btn-danger', method: :delete, remote: true

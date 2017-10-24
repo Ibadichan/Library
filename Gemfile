@@ -61,6 +61,7 @@ group :development, :test do
   gem 'capybara', '~> 2.13'
   gem 'capybara-webkit'
   gem 'database_cleaner'
-  gem 'factory_girl_rails'
+  gem 'dotenv-rails'
+  gem 'factory_bot_rails'
   gem 'rspec-rails'
 end

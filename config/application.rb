@@ -25,7 +25,7 @@ module Library
                                        helper_specs: false, routing_specs: false,
                                        request_specs: false, controller_spec: true
 
-      generator.fixture_replacement :factory_girl, dir: 'spec/factories'
+      generator.fixture_replacement :factory_bot, dir: 'spec/factories'
     end
   end
 end
