@@ -1,4 +1,4 @@
-FactoryGirl.define do
+FactoryBot.define do
   factory :authorization do
     provider 'MyProvider'
     uid '123456'

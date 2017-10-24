@@ -1,0 +1,22 @@
+h1 Fill in all the necessary information to create a plan
+br
+= render 'common/errors', resource: @plan
+br
+= form_for [current_user, @plan], html: { class: 'form-horizontal' } do |f|
+  .form-group
+    = f.label :title, class: 'col-2 control-label'
+    .col-6
+      = f.text_field :title, class: 'form-control'
+  .form-group
+    = f.label :description, class: 'col-2 control-label'
+    .col-6
+      = f.text_area :description, class: 'form-control'
+  .form-group
+    = f.label :book_ids, 'Books', class: 'col-2 control-label'
+    .col-6
+      = f.select :book_ids,
+              options_for_select(current_user.books.map { |book| [ search_book(book), book.id] } ), {},
+              multiple: true, class: 'form-control'
+  .form-group
+    .col-offset-2.col-6
+      = f.submit 'Create', class: 'btn btn-primary'

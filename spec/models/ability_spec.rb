@@ -34,6 +34,11 @@ RSpec.describe Ability do
     it { should be_able_to :destroy, create(:plan, user: user), user: user }
     it { should_not be_able_to :destroy, create(:plan), user: user }
 
+    it { should be_able_to :read, create(:plan, user: user), user: user }
+    it { should_not be_able_to :read, create(:plan), user: user }
+
+    it { should be_able_to :create, Plan }
+
     before { user.books << book }
 
     it { should_not be_able_to :add_in_favorites, book, user: user }
