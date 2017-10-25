@@ -17,7 +17,7 @@
     - if current_user && current_user.books.find_by(google_book_id: item['id']).present?
       p Book is added in favorites
     - elsif user_signed_in?
-      = form_tag user_favorites_path(current_user), remote: true, class: "add-book-#{item['id']}-form" do
+      = form_tag add_in_favorites_user_books_path(current_user), remote: true, class: "add-book-#{item['id']}-form" do
         = text_field_tag :google_book_id, {}, value: item['id'], type: 'hidden'
         br
         = submit_tag 'Add book in My Books', class: 'btn'
