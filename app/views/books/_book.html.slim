@@ -14,7 +14,6 @@
     - if response['items'][0]['saleInfo']['buyLink']
       = link_to 'Buy this book', response['items'][0]['saleInfo']['buyLink']
       br
-    = link_to 'Delete', user_favorite_path(current_user, book),
-                        class: 'btn btn-danger', remote: true, method: :delete
+    = link_to 'Delete', [current_user, book], class: 'btn btn-danger', remote: true, method: :delete
 br
 hr

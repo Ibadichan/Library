@@ -1,19 +1,19 @@
 require 'rails_helper'
 
-RSpec.describe FavoritesController, type: :controller do
+RSpec.describe BooksController, type: :controller do
   sign_in_user
 
-  describe 'POST #create' do
-    RSpec.shared_examples 'adding books to favorites' do
+  describe 'POST #add_in_favorites' do
+    RSpec.shared_examples 'adding books to books' do
       it 'add book in books of user' do
         expect do
-          post :create, params: { user_id: @user, google_book_id: google_book_id, format: :js }
+          post :add_in_favorites, params: { user_id: @user, google_book_id: google_book_id, format: :js }
         end.to change(@user.books, :count).by(1)
       end
 
       it 'renders create view' do
-        post :create, params: { user_id: @user, google_book_id: google_book_id, format: :js }
-        expect(response).to render_template 'create'
+        post :add_in_favorites, params: { user_id: @user, google_book_id: google_book_id, format: :js }
+        expect(response).to render_template 'add_in_favorites'
       end
     end
 
@@ -22,22 +22,22 @@ RSpec.describe FavoritesController, type: :controller do
       let(:google_book_id) { book.google_book_id }
 
       it 'finds book by google_book_id' do
-        post :create, params: { user_id: @user, google_book_id: google_book_id, format: :js }
+        post :add_in_favorites, params: { user_id: @user, google_book_id: google_book_id, format: :js }
         expect(assigns(:book)).to eq book
       end
 
-      it_behaves_like 'adding books to favorites'
+      it_behaves_like 'adding books to books'
     end
 
     context 'book does not exist' do
       let(:google_book_id) { Devise.friendly_token[0, 20] }
 
       it 'assigns created book to @book' do
-        post :create, params: { user_id: @user, google_book_id: google_book_id, format: :js }
+        post :add_in_favorites, params: { user_id: @user, google_book_id: google_book_id, format: :js }
         expect(assigns(:book).google_book_id).to eq google_book_id
       end
 
-      it_behaves_like 'adding books to favorites'
+      it_behaves_like 'adding books to books'
     end
   end
 

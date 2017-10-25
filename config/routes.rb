@@ -5,7 +5,11 @@ Rails.application.routes.draw do
                                      via: %i[get patch], as: :finish_sign_up
 
   resources :users, only: %i[show] do
-    resources :favorites, only: %i[index create destroy]
+    resources :books, only: %i[index destroy] do
+      post :add_in_favorites, on: :collection
+      patch :mark, on: :member
+    end
+
     resources :plans
   end
 
