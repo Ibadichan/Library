@@ -71,6 +71,68 @@ RSpec.describe PlansController, type: :controller do
     end
   end
 
+  describe 'GET #edit' do
+    let(:plan) { create(:plan, user: @user) }
+
+    before { get :edit, params: { id: plan, user_id: @user } }
+
+    it 'assigns requested plan to @plan' do
+      expect(assigns(:plan)).to eq plan
+    end
+
+    it 'renders edit template' do
+      expect(response).to render_template 'edit'
+    end
+  end
+
+  describe 'PATCH #update' do
+    let(:plan) { create(:plan, user: @user, title: 'title', description: 'desc') }
+
+    context 'attributes are invalid' do
+      before do
+        patch :update,
+              params: { id: plan, user_id: @user, plan: { description: nil, title: 'new title' } }
+      end
+
+      it 'assigns the requested plan to @plan' do
+        expect(assigns(:plan)).to eq plan
+      end
+
+      it 'does not update plan' do
+        plan.reload
+
+        expect(plan.title).to eq 'title'
+        expect(plan.description).to eq 'desc'
+      end
+
+      it 'renders edit template' do
+        expect(response).to render_template 'edit'
+      end
+    end
+
+    context 'attributes are valid' do
+      before do
+        patch :update,
+              params: { id: plan, user_id: @user, plan: { description: 'new desc', title: 'new title' } }
+      end
+
+      it 'assigns the requested plan to @plan' do
+        expect(assigns(:plan)).to eq plan
+      end
+
+      it 'updates plan' do
+        plan.reload
+
+        expect(plan.title).to eq 'new title'
+        expect(plan.description).to eq 'new desc'
+      end
+
+      it 'redirects to plan' do
+        expect(response).to redirect_to user_plan_path(@user, plan)
+      end
+    end
+  end
+
   describe 'DELETE #destroy' do
     let!(:plan) { create(:plan, user: @user) }
 

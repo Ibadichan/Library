@@ -39,6 +39,9 @@ RSpec.describe Ability do
 
     it { should be_able_to :create, Plan }
 
+    it { should be_able_to :update, create(:plan, user: user), user: user }
+    it { should_not be_able_to :update, create(:plan), user: user }
+
     before { user.books << book }
 
     it { should_not be_able_to :add_in_favorites, book, user: user }
