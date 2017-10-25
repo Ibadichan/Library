@@ -14,6 +14,13 @@ class PlansController < ApplicationController
     respond_with @plan = current_user.plans.create(plan_params), location: -> { [current_user, @plan] }
   end
 
+  def edit; end
+
+  def update
+    @plan.update(plan_params)
+    respond_with @plan, location: -> { [current_user, @plan] }
+  end
+
   def destroy
     respond_with @plan.destroy
   end
