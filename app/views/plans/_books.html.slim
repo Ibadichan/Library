@@ -1,0 +1,22 @@
+h2 Books:
+br
+- plan.books.each do |book|
+  - response = Search.find_book(book.google_book_id)
+  .row.book data-book-id="#{book.id}"
+    .col-2
+      - if response['items'][0]['volumeInfo']['imageLinks'].present?
+        img src="#{response['items'][0]['volumeInfo']['imageLinks']['thumbnail']}"
+    .col-10
+      p = "#{response['items'][0]['volumeInfo']['title']} (#{response['items'][0]['volumeInfo']['publishedDate']})"
+      - if response['items'][0]['volumeInfo']['authors']
+        p = "Authors: #{response['items'][0]['volumeInfo']['authors'].join(', ')}"
+      - if response['items'][0]['volumeInfo']['description']
+        p = response['items'][0]['volumeInfo']['description'].truncate(100)
+      - if can?(:mark, book)
+        = link_to 'Mark book as readed', mark_user_book_path(current_user, book),
+                remote: true, method: :patch, class: 'btn btn-light mark-book', data: { book_id: book.id }
+      - elsif book.marked?
+        p
+          strong Book is readed
+  br
+  hr
