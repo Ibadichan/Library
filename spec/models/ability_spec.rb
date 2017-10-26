@@ -18,7 +18,7 @@ RSpec.describe Ability do
 
   describe 'For user' do
     let(:user) { create(:user) }
-    let(:book) { create(:book) }
+    let(:book) { create(:book, marked: false) }
 
     it { should_not be_able_to :manage, :all }
 
@@ -42,9 +42,12 @@ RSpec.describe Ability do
     it { should be_able_to :update, create(:plan, user: user), user: user }
     it { should_not be_able_to :update, create(:plan), user: user }
 
+    it { should_not be_able_to :mark, create(:book), user: user }
+
     before { user.books << book }
 
     it { should_not be_able_to :add_in_favorites, book, user: user }
     it { should be_able_to :destroy, book, user: user }
+    it { should be_able_to :mark, book, user: user }
   end
 end

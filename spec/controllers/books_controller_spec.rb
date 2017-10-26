@@ -74,4 +74,26 @@ RSpec.describe BooksController, type: :controller do
       expect(response).to render_template 'destroy'
     end
   end
+
+  describe 'PATCH #mark' do
+    let(:book) { create(:book) }
+
+    before do
+      @user.books << book
+      patch :mark, params: { user_id: @user, id: book, format: :js }
+    end
+
+    it 'assigns the requested book to @book' do
+      expect(assigns(:book)).to eq book
+    end
+
+    it 'changes field marked to true' do
+      book.reload
+      expect(book.marked).to eq true
+    end
+
+    it 'renders mark template' do
+      expect(response).to render_template 'mark'
+    end
+  end
 end

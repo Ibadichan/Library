@@ -16,6 +16,10 @@ class BooksController < ApplicationController
     respond_with @book.destroy
   end
 
+  def mark
+    respond_with @book.update(marked: true)
+  end
+
   private
 
   def set_book
