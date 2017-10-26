@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20_171_022_184_555) do
+ActiveRecord::Schema.define(version: 20_171_025_212_113) do
   # These are extensions that must be enabled in order to support this database
   enable_extension 'plpgsql'
 
@@ -28,6 +28,7 @@ ActiveRecord::Schema.define(version: 20_171_022_184_555) do
     t.string 'google_book_id'
     t.datetime 'created_at', null: false
     t.datetime 'updated_at', null: false
+    t.boolean 'marked', default: false
   end
 
   create_table 'plans', force: :cascade do |t|
