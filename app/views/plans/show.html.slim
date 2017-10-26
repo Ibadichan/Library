@@ -1,23 +1,13 @@
-h1 Welcome to your plan
-p = @plan.title
-p = @plan.description
-- @plan.books.each do |book|
-  - response = Search.find_book(book.google_book_id)
-  .row.book data-book-id="#{book.id}"
-    .col-2
-      - if response['items'][0]['volumeInfo']['imageLinks'].present?
-        img src="#{response['items'][0]['volumeInfo']['imageLinks']['thumbnail']}"
-    .col-10
-      p = "#{response['items'][0]['volumeInfo']['title']} (#{response['items'][0]['volumeInfo']['publishedDate']})"
-      - if response['items'][0]['volumeInfo']['authors']
-        p = "Authors: #{response['items'][0]['volumeInfo']['authors'].join(', ')}"
-      - if response['items'][0]['volumeInfo']['description']
-        p = response['items'][0]['volumeInfo']['description'].truncate(100)
-      - if can?(:mark, book)
-        = link_to 'Mark book as readed', mark_user_book_path(current_user, book),
-                remote: true, method: :patch, class: 'btn btn-light mark-book', data: { book_id: book.id }
-      - elsif book.marked?
-        p Book is readed
+.row
+  .col
+    .title-of-plan
+      h2 Title of Plan:
+      p = @plan.title
+    .description-of-plan
+      h2 Description of the plan:
+      p = @plan.description
+  .col
+    .diagram
+      canvas#pieChart { data-readed = @plan.percent_of_readed_books }
 
-  br
-  hr
+= render 'plans/books', plan: @plan
