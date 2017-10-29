@@ -1,3 +1,5 @@
+require 'sidekiq/web'
+
 Rails.application.routes.draw do
   devise_for :users, controllers: { omniauth_callbacks: 'omniauth_callbacks' }
 
@@ -21,6 +23,10 @@ Rails.application.routes.draw do
     end
 
     root to: 'panels#show'
+  end
+
+  authenticate :user, ->(u) { u.admin? } do
+    mount Sidekiq::Web, at: '/sidekiq'
   end
 
   root to: 'searches#show'

@@ -21,3 +21,4 @@ config/database.yml
 .idea/
 public/
 .env
+dump.rdb

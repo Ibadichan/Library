@@ -9,6 +9,8 @@ require 'webmock/rspec'
 WebMock.allow_net_connect!
 require 'capybara/email/rspec'
 require 'cancan/matchers'
+require 'sidekiq/testing'
+Sidekiq::Testing.inline!
 
 Dir[Rails.root.join('spec/support/**/*.rb')].each { |f| require f }
 Dir["#{Rails.root}/app/uploaders/*.rb"].each { |file| require file }
