@@ -12,10 +12,10 @@ br
         p = "Authors: #{response['items'][0]['volumeInfo']['authors'].join(', ')}"
       - if response['items'][0]['volumeInfo']['description']
         p = response['items'][0]['volumeInfo']['description'].truncate(100)
-      - if can?(:mark, book)
-        = link_to 'Mark book as readed', mark_user_book_path(current_user, book),
+      - if !book.readed_in?(plan)
+        = link_to 'Mark book as readed', mark_user_plan_book_path(current_user, plan, book),
                 remote: true, method: :patch, class: 'btn btn-light mark-book', data: { book_id: book.id }
-      - elsif book.marked?
+      - elsif book.readed_in?(plan)
         p
           strong Book is readed
   br

@@ -8,7 +8,11 @@ class Plan < ApplicationRecord
 
   def percent_of_readed_books
     one_percent = books.size / 100.0
-    marked_books = books.where(marked: true).size.to_f
+    marked_books = plans_books.where(marked: true).size.to_f
     marked_books / one_percent
+  end
+
+  def update_marked_field_for(book)
+    plans_books.find_by_book_id(book.id).update(marked: true) if book
   end
 end
