@@ -63,10 +63,16 @@ RSpec.describe BooksController, type: :controller do
 
     before { @user.books << book }
 
-    it 'deletes book' do
+    it 'deletes book from books array' do
       expect do
         delete :destroy, params: { user_id: @user, id: book, format: :js }
       end.to change(@user.books, :count).by(-1)
+    end
+
+    it 'does not delete book' do
+      expect do
+        delete :destroy, params: { user_id: @user, id: book, format: :js }
+      end.to_not change(Book, :count)
     end
 
     it 'renders template destroy' do
@@ -78,22 +84,62 @@ RSpec.describe BooksController, type: :controller do
   describe 'PATCH #mark' do
     let(:book) { create(:book) }
 
-    before do
-      @user.books << book
-      patch :mark, params: { user_id: @user, id: book, format: :js }
+    RSpec.shared_examples 'setting a variable plan' do
+      it('assigns the requested plan to @plan') { expect(assigns(:plan)).to eq plan }
     end
 
-    it 'assigns the requested book to @book' do
-      expect(assigns(:book)).to eq book
+    RSpec.shared_examples 'return status 403' do
+      it('returns head forbidden') { expect(response.status).to eq 403 }
     end
 
-    it 'changes field marked to true' do
-      book.reload
-      expect(book.marked).to eq true
+    context 'author of book and plan tries to mark' do
+      let(:plan) { create(:plan, user: @user) }
+
+      context 'value of marked field is false' do
+        before do
+          plan.books << book
+          patch :mark, params: { user_id: @user, plan_id: plan, id: book, format: :js }
+        end
+
+        it 'changes marked field of plan_book to true' do
+          plan.plans_books.first.reload
+          expect(plan.plans_books.first.marked).to eq true
+        end
+
+        it 'renders mark view' do
+          expect(response).to render_template 'mark'
+        end
+
+        it_behaves_like 'setting a variable plan'
+      end
+
+      context 'value of marked field is true' do
+        before do
+          plan.books << book
+          plan.plans_books.first.update(marked: true)
+          patch :mark, params: { user_id: @user, plan_id: plan, id: book, format: :js }
+        end
+
+        it_behaves_like 'setting a variable plan'
+        it_behaves_like 'return status 403'
+      end
     end
 
-    it 'renders mark template' do
-      expect(response).to render_template 'mark'
+    context 'non-author of book and plan tries to mark' do
+      let(:plan) { create(:plan) }
+
+      before do
+        plan.books << book
+        patch :mark, params: { user_id: @user, plan_id: plan, id: book, format: :js }
+      end
+
+      it 'does not change marked field of plan_books' do
+        plan.plans_books.first.reload
+        expect(plan.plans_books.first.marked).to eq false
+      end
+
+      it_behaves_like 'setting a variable plan'
+      it_behaves_like 'return status 403'
     end
   end
 end

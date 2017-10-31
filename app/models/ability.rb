@@ -28,7 +28,6 @@ class Ability
 
     can :add_in_favorites, [Book] { |book| find_book_by(book.id).blank? }
     can :destroy, [Book] { |book| find_book_by(book.id) }
-    can :mark, [Book] { |book| !book.marked? && find_book_by(book.id) }
 
     can :create, Plan
     can %i[read destroy update], Plan, user_id: user.id

@@ -9,10 +9,13 @@ Rails.application.routes.draw do
   resources :users, only: %i[show] do
     resources :books, only: %i[index destroy] do
       post :add_in_favorites, on: :collection
-      patch :mark, on: :member
     end
 
-    resources :plans
+    resources :plans do
+      resources :books, only: [] do
+        patch :mark, on: :member
+      end
+    end
   end
 
   resource :search, only: :show

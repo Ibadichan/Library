@@ -1,5 +1,5 @@
 class Book < ApplicationRecord
-  paginates_per 5
+  paginates_per 3
 
   has_many :users_books, dependent: :destroy
   has_many :readers, through: :users_books, source: :user
@@ -8,4 +8,8 @@ class Book < ApplicationRecord
   has_many :plans, through: :plans_books
 
   validates :google_book_id, presence: true, uniqueness: true
+
+  def readed_in?(plan)
+    plans_books.find_by_plan_id(plan.id).try(:marked?)
+  end
 end

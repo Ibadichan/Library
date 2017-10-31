@@ -9,4 +9,25 @@ RSpec.describe Book, type: :model do
 
   it { should have_many(:plans_books).dependent(:destroy) }
   it { should have_many(:plans).through(:plans_books) }
+
+  describe '#readed_in?' do
+    let(:book) { create(:book) }
+    let(:plan) { create(:plan) }
+
+    before { plan.books << book }
+
+    context 'book is readed' do
+      it 'returns true' do
+        plan.plans_books.first.update(marked: true)
+        expect(book.readed_in?(plan)).to eq true
+      end
+    end
+
+    context 'book is not readed' do
+      it 'returns false' do
+        plan.plans_books.first.update(marked: false)
+        expect(book.readed_in?(plan)).to eq false
+      end
+    end
+  end
 end

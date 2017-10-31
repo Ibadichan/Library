@@ -14,6 +14,7 @@
     - if response['items'][0]['saleInfo']['buyLink']
       = link_to 'Buy this book', response['items'][0]['saleInfo']['buyLink']
       br
+    br
     = link_to 'Delete', [current_user, book], class: 'btn btn-danger', remote: true, method: :delete
 br
 hr
