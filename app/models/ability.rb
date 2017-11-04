@@ -13,9 +13,7 @@ class Ability
     end
   end
 
-  def guest_abilities
-    # can :read, :all
-  end
+  def guest_abilities; end
 
   def admin_abilities
     can :manage, :all
@@ -31,11 +29,31 @@ class Ability
 
     can :create, Plan
     can %i[read destroy update], Plan, user_id: user.id
+
+    can :subscribe, PlansBook do |plans_book|
+      plan = find_plan_by(plans_book)
+      book = find_book_of_plan_by(plans_book)
+      subscription = find_subscription_by(plans_book)
+
+      plan && book && subscription.blank? && !plans_book.marked?
+    end
   end
 
   private
 
   def find_book_by(id)
     user.books.find_by_id(id)
+  end
+
+  def find_plan_by(plans_book)
+    user.plans.find_by_id(plans_book.plan_id)
+  end
+
+  def find_book_of_plan_by(plans_book)
+    find_plan_by(plans_book).books.find_by_id(plans_book.book_id)
+  end
+
+  def find_subscription_by(plans_book)
+    user.subscriptions.find_by(plans_book: plans_book)
   end
 end

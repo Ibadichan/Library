@@ -9,6 +9,7 @@ RSpec.describe User, type: :model do
   it { should have_many(:books).through(:users_books) }
 
   it { should have_many(:plans).dependent(:destroy) }
+  it { should have_many(:subscriptions).dependent(:destroy) }
 
   describe '#email_verified?' do
     let(:user)      { create(:user) }
