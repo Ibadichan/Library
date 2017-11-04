@@ -14,6 +14,7 @@ Rails.application.routes.draw do
     resources :plans do
       resources :books, only: [] do
         patch :mark, on: :member
+        resources :subscriptions, only: %i[create destroy]
       end
     end
   end

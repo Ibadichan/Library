@@ -1,0 +1,2 @@
+link = $('.book[data-book-id=<%= @plans_book.book_id %>] .subscribe-to-book')
+link.replaceWith('<%= j render 'books/unsubscribe' %>');
