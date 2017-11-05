@@ -31,11 +31,11 @@ class Ability
     can %i[read destroy update], Plan, user_id: user.id
 
     can :subscribe, PlansBook do |plans_book|
-      plan = find_plan_by(plans_book)
-      book = find_book_of_plan_by(plans_book)
-      subscription = find_subscription_by(plans_book)
+      find_subscription_by(plans_book).blank? && !plans_book.marked?
+    end
 
-      plan && book && subscription.blank? && !plans_book.marked?
+    can :unsubscribe, PlansBook do |plans_book|
+      find_subscription_by(plans_book).present? && !plans_book.marked?
     end
   end
 
@@ -43,14 +43,6 @@ class Ability
 
   def find_book_by(id)
     user.books.find_by_id(id)
-  end
-
-  def find_plan_by(plans_book)
-    user.plans.find_by_id(plans_book.plan_id)
-  end
-
-  def find_book_of_plan_by(plans_book)
-    find_plan_by(plans_book).books.find_by_id(plans_book.book_id)
   end
 
   def find_subscription_by(plans_book)

@@ -42,6 +42,7 @@ RSpec.describe Ability do
     it { should be_able_to :update, create(:plan, user: user), user: user }
     it { should_not be_able_to :update, create(:plan), user: user }
     it { should_not be_able_to :subscribe, create(:book).plans_books.first, user: user }
+    it { should_not be_able_to :unsubscribe, create(:book).plans_books.first, user: user }
 
     before do
       user.books << book
@@ -51,6 +52,7 @@ RSpec.describe Ability do
     it { should_not be_able_to :add_in_favorites, book, user: user }
     it { should be_able_to :destroy, book, user: user }
     it { should be_able_to :subscribe, book.plans_books.first, user: user }
+    it { should_not be_able_to :unsubscribe, book.plans_books.first, user: user }
 
     it do
       book.plans_books.first.update(marked: true)
@@ -58,8 +60,18 @@ RSpec.describe Ability do
     end
 
     it do
+      book.plans_books.first.update(marked: true)
+      should_not be_able_to :unsubscribe, book.plans_books.first, user: user
+    end
+
+    it do
       book.plans_books.first.subscriptions.create(user: user)
       should_not be_able_to :subscribe, book.plans_books.first, user: user
+    end
+
+    it do
+      book.plans_books.first.subscriptions.create(user: user)
+      should be_able_to :unsubscribe, book.plans_books.first, user: user
     end
   end
 end
