@@ -6,6 +6,11 @@ class SubscriptionsController < ApplicationController
     respond_with @subscription = current_user.subscriptions.create(plans_book: @plans_book)
   end
 
+  def destroy
+    authorize! :unsubscribe, @plans_book
+    respond_with Subscription.find(params[:id]).destroy
+  end
+
   private
 
   def set_plans_book

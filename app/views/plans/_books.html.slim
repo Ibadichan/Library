@@ -15,12 +15,8 @@ br
       - if !book.readed_in?(plan)
         = link_to 'Mark book as readed', mark_user_plan_book_path(current_user, plan, book),
                 remote: true, method: :patch, class: 'btn btn-info mark-book', data: { book_id: book.id }
-
-        - if can?(:subscribe, plan.plans_books.find_by(book_id: book.id))
-          = render 'books/subscribe', book: book, plan: plan, user: current_user
-        - else
-          = render 'books/unsubscribe'
-
+        = render 'books/subscribe', book: book, plan: plan, user: current_user
+        = render 'books/unsubscribe', book: book, plan: plan, user: current_user
       - elsif book.readed_in?(plan)
         p
           strong Book is readed
