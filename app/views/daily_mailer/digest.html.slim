@@ -1,0 +1,10 @@
+h1 Hello
+p You are subscribed to this book:
+p we ask you to read this book ->
+- if @book['items'][0]['volumeInfo']['imageLinks'].present?
+  img src="#{@book['items'][0]['volumeInfo']['imageLinks']['thumbnail']}"
+p = "#{@book['items'][0]['volumeInfo']['title']} (#{@book['items'][0]['volumeInfo']['publishedDate']})"
+- if @book['items'][0]['volumeInfo']['authors']
+  p = "Authors: #{@book['items'][0]['volumeInfo']['authors'].join(', ')}"
+- if @book['items'][0]['volumeInfo']['description']
+  p = @book['items'][0]['volumeInfo']['description'].truncate(100)
