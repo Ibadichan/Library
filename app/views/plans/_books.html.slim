@@ -1,6 +1,6 @@
 h2 Books:
 br
-- plan.books.each do |book|
+- @books.each do |book|
   - response = Search.find_book(book.google_book_id)
   .row.book data-book-id="#{book.id}"
     .col-2

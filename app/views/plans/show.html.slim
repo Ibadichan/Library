@@ -11,3 +11,4 @@
       canvas#pieChart { data-readed = @plan.percent_of_readed_books }
 
 = render 'plans/books', plan: @plan
+= paginate @books, theme: 'twitter-bootstrap-4'
