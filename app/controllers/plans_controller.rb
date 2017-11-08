@@ -6,7 +6,10 @@ class PlansController < ApplicationController
     respond_with @plans = current_user.plans
   end
 
-  def show; end
+  def show
+    @books = @plan.books.page params[:page]
+    respond_with @plan
+  end
 
   def new; end
 
