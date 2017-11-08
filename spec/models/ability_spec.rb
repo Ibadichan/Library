@@ -41,8 +41,13 @@ RSpec.describe Ability do
 
     it { should be_able_to :update, create(:plan, user: user), user: user }
     it { should_not be_able_to :update, create(:plan), user: user }
+
     it { should_not be_able_to :subscribe, create(:book).plans_books.first, user: user }
     it { should_not be_able_to :unsubscribe, create(:book).plans_books.first, user: user }
+
+    it { should be_able_to :share, create(:plan, public: false, user: user), user: user }
+    it { should_not be_able_to :share, create(:plan, public: true, user: user), user: user }
+    it { should_not be_able_to :share, create(:plan), user: user }
 
     before do
       user.books << book

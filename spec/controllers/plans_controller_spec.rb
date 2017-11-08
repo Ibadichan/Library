@@ -147,4 +147,19 @@ RSpec.describe PlansController, type: :controller do
       expect(response).to render_template 'destroy'
     end
   end
+
+  describe 'PATCH #share' do
+    let!(:plan) { create(:plan, user: @user, public: false) }
+
+    before { patch :share, params: { user_id: @user, id: plan, format: :js } }
+
+    it 'changes field public to true' do
+      plan.reload
+      expect(plan.public).to eq true
+    end
+
+    it 'renders share.js.erb template' do
+      expect(response).to render_template 'share'
+    end
+  end
 end
