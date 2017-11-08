@@ -1,1 +1,4 @@
-= link_to 'Make the plan private', ''
+- if can?(:make_private, plan)
+  = link_to 'Make the plan private', make_private_user_plan_path(current_user, plan),
+            class: 'btn btn-warning btn-block make-private-plan',
+            remote: true, method: :patch

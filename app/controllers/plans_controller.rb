@@ -32,6 +32,10 @@ class PlansController < ApplicationController
     respond_with @plan.update(public: true)
   end
 
+  def make_private
+    respond_with @plan.update(public: false)
+  end
+
   private
 
   def plan_params
