@@ -1,0 +1,4 @@
+- if can?(:share, plan)
+  = link_to 'Make the plan public', share_user_plan_path(current_user, plan),
+                                    class: 'btn btn-info btn-block publish-plan',
+                                    remote: true, method: :patch

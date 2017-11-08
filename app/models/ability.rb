@@ -29,6 +29,7 @@ class Ability
 
     can :create, Plan
     can %i[read destroy update], Plan, user_id: user.id
+    can :share, Plan, user_id: user.id, public: false
 
     can :subscribe, PlansBook do |plans_book|
       find_subscription_by(plans_book).blank? && !plans_book.marked?

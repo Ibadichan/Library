@@ -28,6 +28,10 @@ class PlansController < ApplicationController
     respond_with @plan.destroy
   end
 
+  def share
+    respond_with @plan.update(public: true)
+  end
+
   private
 
   def plan_params
