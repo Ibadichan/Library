@@ -162,4 +162,19 @@ RSpec.describe PlansController, type: :controller do
       expect(response).to render_template 'share'
     end
   end
+
+  describe 'PATCH #make_private' do
+    let!(:plan) { create(:plan, user: @user, public: true) }
+
+    before { patch :make_private, params: { user_id: @user, id: plan, format: :js } }
+
+    it 'changes field public to false' do
+      plan.reload
+      expect(plan.public).to eq false
+    end
+
+    it 'renders make_private.js.erb template' do
+      expect(response).to render_template 'make_private'
+    end
+  end
 end

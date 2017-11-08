@@ -1,1 +1,1 @@
-$('.card[data-plan-id=<%= @plan.id %>] .publish-plan').replaceWith('<%= j render 'make_private' %>');
+$('.card[data-plan-id=<%= @plan.id %>] .publish-plan').replaceWith('<%= j render 'make_private', plan: @plan %>');

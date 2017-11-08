@@ -12,7 +12,7 @@ Rails.application.routes.draw do
     end
 
     resources :plans do
-      patch :share, on: :member
+      patch :share, :make_private, on: :member
       resources :books, only: [] do
         patch :mark, on: :member
         resources :subscriptions, only: %i[create destroy]
