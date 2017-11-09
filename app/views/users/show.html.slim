@@ -1,16 +1,33 @@
 .container
-  h1 Profile
-  br
-  .info
-    = image_tag(@user.avatar.url, id: 'user-avatar', class: 'img-thumbnail', style: 'width: 304px; height: 236px;')
-    br
-    br
-    h4
-      | My Email:
-      |      #{@user.email}
-    br
-    h4
-      | My Name:
-      |      #{@user.name}
-    br
-  = button_to 'Edit Profile', edit_user_registration_path, class: 'btn btn-primary', method: :get
+  .row
+    .col
+      h1 Profile
+      br
+      .info
+        = image_tag(@user.avatar.url, id: 'user-avatar', class: 'img-thumbnail', style: 'width: 304px; height: 236px;')
+        br
+        br
+        h4
+          | My Email:
+          |      #{@user.email}
+        br
+        h4
+          | My Name:
+          |      #{@user.name}
+        br
+      = button_to 'Edit Profile', edit_user_registration_path, class: 'btn btn-primary', method: :get
+    .col
+      h1 Public plans
+      br
+      - @public_plans.each do |plan|
+        .plan
+          .title-of-plan
+            h3 Title of Plan:
+            p = plan.title.truncate(50)
+          .description-of-plan
+            h3 Description of the plan:
+            p = plan.description.truncate(100)
+          = link_to 'See this plan', [current_user, plan], class: 'btn btn-primary'
+          hr
+      br
+      = paginate @public_plans, theme: 'twitter-bootstrap-4'

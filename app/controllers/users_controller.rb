@@ -1,7 +1,9 @@
 class UsersController < ApplicationController
   load_and_authorize_resource
 
-  def show; end
+  def show
+    @public_plans = @user.plans.where(public: true).page params[:page]
+  end
 
   def finish_sign_up
     respond_with @user.update(email: user_params[:email]) if request.patch? && user_params[:email]
