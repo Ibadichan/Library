@@ -1,4 +1,6 @@
 class Plan < ApplicationRecord
+  paginates_per 2
+
   belongs_to :user
 
   has_many :plans_books, dependent: :destroy
