@@ -9,7 +9,7 @@ RSpec.describe PlansController, type: :controller do
     before { get :index, params: { user_id: @user } }
 
     it 'assigns all plans of user to @plans' do
-      expect(assigns(:plans)).to eq plans
+      expect(assigns(:plans)).to match_array plans
     end
 
     it 'renders template index' do

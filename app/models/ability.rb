@@ -23,6 +23,7 @@ class Ability
     guest_abilities
 
     can %i[read finish_sign_up], User, id: user.id
+    can :search_others_users, User
 
     can :add_in_favorites, [Book] { |book| find_book_by(book.id).blank? }
     can :destroy, [Book] { |book| find_book_by(book.id) }
