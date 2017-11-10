@@ -15,7 +15,8 @@
           | My Name:
           |      #{@user.name}
         br
-      = button_to 'Edit Profile', edit_user_registration_path, class: 'btn btn-primary', method: :get
+      - if can?(:update, @user)
+        = button_to 'Edit Profile', edit_user_registration_path, class: 'btn btn-primary', method: :get
     .col
       h1 Public plans
       br
@@ -27,7 +28,7 @@
           .description-of-plan
             h3 Description of the plan:
             p = plan.description.truncate(100)
-          = link_to 'See this plan', [current_user, plan], class: 'btn btn-primary'
+          = link_to 'See this plan', [plan.user, plan], class: 'btn btn-primary'
           hr
       br
       = paginate @public_plans, theme: 'twitter-bootstrap-4'

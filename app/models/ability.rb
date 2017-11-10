@@ -22,8 +22,8 @@ class Ability
   def user_abilities
     guest_abilities
 
-    can %i[read finish_sign_up], User, id: user.id
-    can :search_others_users, User
+    can %i[finish_sign_up update], User, id: user.id
+    can %i[search_others_users read], User
 
     can :add_in_favorites, [Book] { |book| find_book_by(book.id).blank? }
     can :destroy, [Book] { |book| find_book_by(book.id) }
