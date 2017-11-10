@@ -18,7 +18,7 @@ br
         .col-10
           p = "Name of user: #{user.name}"
           p = "Email of user: #{user.email}"
-          = link_to 'See this account', '', class: 'btn btn-primary'
+          = link_to 'See this account', user, class: 'btn btn-primary'
     hr
 
 - else

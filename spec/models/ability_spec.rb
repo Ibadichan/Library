@@ -22,14 +22,16 @@ RSpec.describe Ability do
 
     it { should_not be_able_to :manage, :all }
 
-    it { should be_able_to :read, user, user: user }
-    it { should_not be_able_to :read, create(:user), user: user }
+    it { should be_able_to :read, User }
+    it { should be_able_to :search_others_users, User }
 
     it { should be_able_to :finish_sign_up, user, user: user }
     it { should_not be_able_to :finish_sign_up, create(:user), user: user }
 
-    it { should be_able_to :add_in_favorites, create(:book), user: user }
-    it { should_not be_able_to :destroy, create(:book), user: user }
+    it { should be_able_to :update, user, user: user }
+    it { should_not be_able_to :update, create(:user), user: user }
+
+    it { should be_able_to :create, Plan }
 
     it { should be_able_to :destroy, create(:plan, user: user), user: user }
     it { should_not be_able_to :destroy, create(:plan), user: user }
@@ -37,13 +39,8 @@ RSpec.describe Ability do
     it { should be_able_to :read, create(:plan, user: user), user: user }
     it { should_not be_able_to :read, create(:plan), user: user }
 
-    it { should be_able_to :create, Plan }
-
     it { should be_able_to :update, create(:plan, user: user), user: user }
     it { should_not be_able_to :update, create(:plan), user: user }
-
-    it { should_not be_able_to :subscribe, create(:book).plans_books.first, user: user }
-    it { should_not be_able_to :unsubscribe, create(:book).plans_books.first, user: user }
 
     it { should be_able_to :share, create(:plan, public: false, user: user), user: user }
     it { should_not be_able_to :share, create(:plan, public: true, user: user), user: user }
@@ -53,7 +50,11 @@ RSpec.describe Ability do
     it { should_not be_able_to :make_private, create(:plan, public: false, user: user), user: user }
     it { should_not be_able_to :make_private, create(:plan), user: user }
 
-    it { should be_able_to :search_others_users, User }
+    it { should be_able_to :add_in_favorites, create(:book), user: user }
+    it { should_not be_able_to :destroy, create(:book), user: user }
+
+    it { should_not be_able_to :subscribe, create(:book).plans_books.first, user: user }
+    it { should_not be_able_to :unsubscribe, create(:book).plans_books.first, user: user }
 
     before do
       user.books << book
@@ -62,6 +63,7 @@ RSpec.describe Ability do
 
     it { should_not be_able_to :add_in_favorites, book, user: user }
     it { should be_able_to :destroy, book, user: user }
+
     it { should be_able_to :subscribe, book.plans_books.first, user: user }
     it { should_not be_able_to :unsubscribe, book.plans_books.first, user: user }
 
