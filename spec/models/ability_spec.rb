@@ -38,6 +38,7 @@ RSpec.describe Ability do
 
     it { should be_able_to :read, create(:plan, user: user), user: user }
     it { should_not be_able_to :read, create(:plan), user: user }
+    it { should be_able_to :read, create(:plan, public: true), user: user }
 
     it { should be_able_to :update, create(:plan, user: user), user: user }
     it { should_not be_able_to :update, create(:plan), user: user }
