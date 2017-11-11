@@ -29,8 +29,9 @@ class Ability
     can :destroy, [Book] { |book| find_book_by(book.id) }
 
     can :create, Plan
-    can %i[read destroy update], Plan, user_id: user.id
+    can %i[destroy update], Plan, user_id: user.id
     can :share, Plan, user_id: user.id, public: false
+    can :read, [Plan] { |plan| plan.user == user || plan.public? }
     can :make_private, Plan, user_id: user.id, public: true
 
     can :subscribe, PlansBook do |plans_book|
