@@ -177,4 +177,26 @@ RSpec.describe PlansController, type: :controller do
       expect(response).to render_template 'make_private'
     end
   end
+
+  describe 'POST #take' do
+    let(:other_user) { create(:user) }
+    let!(:plan) { create(:plan, user: other_user, public: true) }
+
+    it 'creates a new plan for current_user' do
+      expect do
+        post :take, params: { user_id: other_user, id: plan, format: :js }
+      end.to change(@user.plans, :count).by(1)
+    end
+
+    it 'does not create plan for author' do
+      expect do
+        post :take, params: { user_id: other_user, id: plan, format: :js }
+      end.to_not change(other_user.plans, :count)
+    end
+
+    it 'renders take.js.erb template' do
+      post :take, params: { user_id: other_user, id: plan, format: :js }
+      expect(response).to render_template 'take'
+    end
+  end
 end

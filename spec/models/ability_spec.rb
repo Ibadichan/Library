@@ -51,6 +51,10 @@ RSpec.describe Ability do
     it { should_not be_able_to :make_private, create(:plan, public: false, user: user), user: user }
     it { should_not be_able_to :make_private, create(:plan), user: user }
 
+    it { should be_able_to :take, create(:plan, public: true), user: user }
+    it { should_not be_able_to :take, create(:plan), user: user }
+    it { should_not be_able_to :take, create(:plan, user: user), user: user }
+
     it { should be_able_to :add_in_favorites, create(:book), user: user }
     it { should_not be_able_to :destroy, create(:book), user: user }
 

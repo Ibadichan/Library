@@ -28,19 +28,20 @@ feature 'User can take plan of other user', '
     expect(page).to_not have_link 'Mark book as readed'
   end
 
-  scenario 'User tries to add public plan in own plans' do
+  scenario 'User tries to add public plan in own plans', js: true do
+    Capybara.raise_server_errors = false
+
+    click_on 'Add this plan in My Plans'
+
+    expect(page).to_not have_link 'Add this plan in My Plans'
+    expect(page).to have_content 'Plan is added'
+
+    visit user_plan_path(user, Plan.last)
+
+    expect(page).to have_content plan.title
+    expect(page).to have_content plan.description
+    expect(page).to have_content 'Stalin'
+    expect(page).to have_link 'Mark book as readed'
+    expect(page).to have_link 'Subscribe to book'
   end
 end
-
-# click_on 'Add this plan in My Plans'
-#
-# expect(page).to_not have_link 'Add this plan in My Plans'
-# expect(page).to have_content 'Plan is added'
-#
-# visit user_plan_path(user, plan)
-#
-# expect(page).to have_content plan.title
-# expect(page).to have_content plan.description
-# expect(page).to have_content 'Stalin'
-# expect(page).to have_link 'Mark book as readed'
-# expect(page).to have_link 'Subscribe to book'
