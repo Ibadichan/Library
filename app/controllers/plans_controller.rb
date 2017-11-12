@@ -36,6 +36,13 @@ class PlansController < ApplicationController
     respond_with @plan.update(public: false)
   end
 
+  def take
+    copy_of_plan = @plan.dup
+    copy_of_plan.user = current_user
+    copy_of_plan.books = @plan.books
+    copy_of_plan.save
+  end
+
   private
 
   def plan_params

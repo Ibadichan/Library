@@ -15,6 +15,7 @@ Rails.application.routes.draw do
 
     resources :plans do
       patch :share, :make_private, on: :member
+      post :take, on: :member
       resources :books, only: [] do
         patch :mark, on: :member
         resources :subscriptions, only: %i[create destroy]
