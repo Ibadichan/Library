@@ -1,5 +1,5 @@
 - if can?(:unsubscribe, plan.plans_books.find_by(book_id: book.id))
-  - subscription = find_subscription_by(user, plan, book)
+  - subscription = user.find_subscription_by(plan, book)
   = link_to 'Unsubscribe from book', user_plan_book_subscription_path(user, plan, book, subscription),
                                      class: 'margin-left btn btn-danger unsubscribe-from-book',
                                      remote: true, method: :delete
