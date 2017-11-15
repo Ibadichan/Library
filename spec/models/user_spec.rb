@@ -109,4 +109,16 @@ RSpec.describe User, type: :model do
       end
     end
   end
+
+  describe '#find_subscription_by' do
+    let(:user) { create(:user) }
+    let(:book) { create(:book) }
+    let(:plan) { create(:plan) }
+
+    it 'finds subscription by plan_book' do
+      plan.books << book
+      user.subscriptions.create(plans_book: book.plans_books.first)
+      expect(user.find_subscription_by(plan, book)).to eq user.subscriptions.last
+    end
+  end
 end

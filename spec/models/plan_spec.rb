@@ -10,13 +10,13 @@ RSpec.describe Plan, type: :model do
 
   describe '#percent_of_readed_books' do
     let(:plan)        { create(:plan) }
-    let(:left_books)  { create_list(:book, 3) }
+    let(:left_books)  { create_list(:book, 2) }
     let(:readed_book) { create(:book) }
 
     it 'returns percent of readed books' do
       plan.books << readed_book << left_books
       plan.plans_books.first.update(marked: true)
-      expect(plan.percent_of_readed_books).to eq 25
+      expect(plan.percent_of_readed_books).to eq 33.333333333333336
     end
   end
 
@@ -29,6 +29,23 @@ RSpec.describe Plan, type: :model do
     it 'changes value of plan_book to true' do
       plan.update_marked_field_for(book)
       expect(plan.plans_books.first.marked).to eq true
+    end
+  end
+
+  describe '#make_clone_by' do
+    let(:user) { create(:user) }
+    let!(:plan) { create(:plan) }
+
+    it 'creates a new plan' do
+      expect { plan.make_clone_by(user) }.to change(Plan, :count).by(1)
+    end
+
+    it 'fills fields of plan' do
+      clone = plan.make_clone_by(user)
+      expect(clone.title).to eq plan.title
+      expect(clone.description).to eq plan.description
+      expect(clone.user).to eq user
+      expect(clone.books).to eq plan.books
     end
   end
 end

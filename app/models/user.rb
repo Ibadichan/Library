@@ -41,4 +41,9 @@ class User < ApplicationRecord
   def email_verified?
     email && email !~ TEMP_EMAIL_REGEX
   end
+
+  def find_subscription_by(plan, book)
+    plans_book = plan.plans_books.find_by(book_id: book.id)
+    subscriptions.find_by(plans_book: plans_book) if plans_book
+  end
 end

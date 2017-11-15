@@ -17,4 +17,12 @@ class Plan < ApplicationRecord
   def update_marked_field_for(book)
     plans_books.find_by_book_id(book.id).update(marked: true) if book
   end
+
+  def make_clone_by(user)
+    copy_of_plan = dup
+    copy_of_plan.user = user
+    copy_of_plan.books = books
+    copy_of_plan.save
+    copy_of_plan
+  end
 end

@@ -37,10 +37,7 @@ class PlansController < ApplicationController
   end
 
   def take
-    copy_of_plan = @plan.dup
-    copy_of_plan.user = current_user
-    copy_of_plan.books = @plan.books
-    copy_of_plan.save
+    respond_with @plan.make_clone_by(current_user)
   end
 
   private
