@@ -4,7 +4,6 @@ RSpec.configure do |config|
   Capybara.server = :puma
   Capybara.javascript_driver = :webkit
 
-  config.include WaitForAjax, type: :feature
   config.include AcceptanceMacros, type: :feature
 
   config.use_transactional_fixtures = false

@@ -21,7 +21,7 @@ RSpec.describe Admin::UsersController, type: :controller do
   end
 
   describe 'POST #create' do
-    let(:avatar) { Rack::Test::UploadedFile.new(File.open("#{Rails.root}/.rspec")) }
+    let(:avatar) { Rack::Test::UploadedFile.new('.rspec') }
 
     context 'with valid attributes' do
       it 'creates a new user' do
