@@ -1,14 +1,11 @@
-h1 Your Plans:
-br
+h1.margin-bottom Your Plans:
 = link_to 'Add new Plan', new_user_plan_path(current_user), class: 'btn btn-primary'
-br
-.card-deck
+.card-deck.margin-top
   - @plans.each do |plan|
     .card { data-plan-id = plan.id }
-      .card-body
+      .card-body.margin-bottom
         h4 = link_to plan.title.truncate(50), [current_user, plan]
         p.card-text = plan.description.truncate(100)
-      br
       = link_to 'Delete', [current_user, plan], class: 'btn btn-danger btn-block', method: :delete, remote: true
       = link_to 'Edit', edit_user_plan_path(current_user, plan), class: 'btn btn-success btn-block'
       = render 'make_public', plan: plan

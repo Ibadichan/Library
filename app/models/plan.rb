@@ -10,8 +10,7 @@ class Plan < ApplicationRecord
 
   def percent_of_readed_books
     one_percent = books.size / 100.0
-    marked_books = plans_books.where(marked: true).size.to_f
-    marked_books / one_percent
+    size_of_marked_books / one_percent
   end
 
   def update_marked_field_for(book)
@@ -24,5 +23,9 @@ class Plan < ApplicationRecord
     copy_of_plan.books = books
     copy_of_plan.save
     copy_of_plan
+  end
+
+  def size_of_marked_books
+    plans_books.where(marked: true).size.to_f
   end
 end

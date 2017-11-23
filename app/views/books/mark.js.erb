@@ -1,3 +1,3 @@
-$('a.mark-book[data-book-id=<%= @book.id %>]').replaceWith('<p><strong>Book is readed</strong></p>');
+$('a.mark-book[data-book-id=<%= @book.id %>]').replaceWith('<strong>Book is readed</strong>');
 $('.book[data-book-id=<%= @book.id %>] .subscribe-to-book').remove();
 $('.book[data-book-id=<%= @book.id %>] .unsubscribe-from-book').remove();

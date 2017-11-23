@@ -1,40 +1,16 @@
 .container
   .row
     .col
-      h1 Profile
-      br
+      h1.margin-bottom Profile
       .info
         = image_tag(@user.avatar.url, id: 'user-avatar', class: 'img-thumbnail', style: 'width: 304px; height: 236px;')
-        br
-        br
-        h4
-          | My Email:
-          |      #{@user.email}
-        br
-        h4
-          | My Name:
-          |      #{@user.name}
-        br
+        h4.margin-top = "My Email: #{@user.email}"
+        h4.margin-bottom = "My Name: #{@user.name}"
       - if can?(:update, @user)
         = button_to 'Edit Profile', edit_user_registration_path, class: 'btn btn-primary', method: :get
     .col
-      h1 Public plans
-      br
-      - @public_plans.each do |plan|
-        .plan
-          .title-of-plan
-            h3 Title of Plan:
-            p = plan.title.truncate(50)
-          .description-of-plan
-            h3 Description of the plan:
-            p = plan.description.truncate(100)
-          = link_to 'See this plan', [plan.user, plan], class: 'btn btn-primary'
-          - if can?(:take, plan)
-            = link_to 'Add this plan in My Plans', take_user_plan_path(plan.user, plan), remote: true, method: :post,
-                                                   class: 'btn btn-primary take-plan', style: 'margin-left: 30px;'
-          - else
-            p
-              strong Plan is added
-          hr
-      br
-      = paginate @public_plans, theme: 'twitter-bootstrap-4'
+      - if @public_plans.present?
+        h1.margin-bottom Public plans
+        - @public_plans.each do |plan|
+          = render 'users/public_plan', plan: plan
+        = paginate @public_plans, theme: 'twitter-bootstrap-4'

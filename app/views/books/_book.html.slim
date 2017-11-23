@@ -1,4 +1,4 @@
-.row.book data-book-id="#{book.id}"
+.row.book.margin-bottom data-book-id="#{book.id}"
   .col-2
     - if response['items'][0]['volumeInfo']['imageLinks'].present?
       img src="#{response['items'][0]['volumeInfo']['imageLinks']['thumbnail']}"
@@ -16,5 +16,4 @@
       br
     br
     = link_to 'Delete', [current_user, book], class: 'btn btn-danger', remote: true, method: :delete
-br
 hr

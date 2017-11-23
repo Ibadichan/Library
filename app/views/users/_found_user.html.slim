@@ -1,0 +1,9 @@
+.user
+  .row
+    .col-2
+      = image_tag(user.avatar.url, id: 'user-avatar', style: 'width: 100px; height: 100px;')
+    .col-10
+      p = "Name of user: #{user.name}"
+      p = "Email of user: #{user.email}"
+      = link_to 'See this account', user, class: 'btn btn-primary'
+  hr

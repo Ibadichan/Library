@@ -1,0 +1,15 @@
+.plan
+  .title-of-plan
+    h3 Title of Plan:
+    p = plan.title.truncate(50)
+  .description-of-plan
+    h3 Description of the plan:
+    p = plan.description.truncate(100)
+  = link_to 'See this plan', [plan.user, plan], class: 'btn btn-primary'
+  - if can?(:take, plan)
+    = link_to 'Add this plan in My Plans', take_user_plan_path(plan.user, plan),
+                                           remote: true, method: :post,
+                                           class: 'btn btn-primary take-plan margin-left'
+  - else
+    strong.margin-left Plan is added
+  hr

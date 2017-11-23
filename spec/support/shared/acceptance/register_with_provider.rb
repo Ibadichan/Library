@@ -7,7 +7,7 @@ shared_examples_for 'Registration with provider' do
     mock_provider_auth_hash
 
     expect(page).to have_content 'Please, add your email for verify account'
-    fill_in 'Email', with: 'new@mail.com'
+    fill_in :user_email, with: 'new@mail.com'
     click_on 'Post'
 
     open_email('new@mail.com')
@@ -27,7 +27,7 @@ shared_examples_for 'Registration with provider' do
     mock_provider_auth_hash
 
     expect(page).to have_content 'Please, add your email for verify account'
-    fill_in 'Email', with: 'new@mail.com'
+    fill_in :user_email, with: 'new@mail.com'
     click_on 'Post'
 
     open_email('new@mail.com')

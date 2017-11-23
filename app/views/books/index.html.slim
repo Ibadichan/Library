@@ -1,5 +1,4 @@
-h1 Your Favorites:
-br
+h1.margin-bottom Your Favorites:
 - @books.each do |book|
   = render 'books/book', response: Search.find_book(book.google_book_id), book: book
 = paginate @books, theme: 'twitter-bootstrap-4'

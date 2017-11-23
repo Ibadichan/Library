@@ -1,25 +1,8 @@
-h2 Please, enter email or name of user to search
-br
-- url = search_others_users_user_path(current_user)
-
-= search_form_for(@q, method: :get, html: { style: 'display: flex;' }, url: url) do |f|
-  = f.search_field :name_or_email_cont, placeholder: 'Your query', class: 'form-control', style: 'width: 70%'
-  br
-  = f.submit class: 'btn btn-primary', style: 'margin-left: 20px;'
+= render 'users/search_users_form', q: @q
 
 - if @users.any?
-  br
-  p Found results:
+  p.margin-top Found results:
   - @users.each do |user|
-    .user
-      .row
-        .col-2
-          = image_tag(user.avatar.url, id: 'user-avatar', style: 'width: 100px; height: 100px;')
-        .col-10
-          p = "Name of user: #{user.name}"
-          p = "Email of user: #{user.email}"
-          = link_to 'See this account', user, class: 'btn btn-primary'
-    hr
-
+    = render 'users/found_user', user: user
 - else
-  p No results found.
+  p.margin-top No results found.

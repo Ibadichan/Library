@@ -48,4 +48,15 @@ RSpec.describe Plan, type: :model do
       expect(clone.books).to eq plan.books
     end
   end
+
+  describe '#size_of_marked_books' do
+    let(:plan)  { create(:plan) }
+    let(:books) { create_list(:book, 2) }
+
+    it 'returns size of marked books' do
+      plan.books << books
+      plan.plans_books.first.update(marked: true)
+      expect(plan.size_of_marked_books).to eq 1.0
+    end
+  end
 end

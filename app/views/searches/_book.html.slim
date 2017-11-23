@@ -1,4 +1,4 @@
-.row.book
+.row.book.margin-bottom
   .col-2
     - if item['volumeInfo']['imageLinks'].present?
       img src="#{item['volumeInfo']['imageLinks']['thumbnail']}"
@@ -15,12 +15,9 @@
       = link_to 'Buy this book', item['saleInfo']['buyLink']
       br
     - if current_user && current_user.books.find_by(google_book_id: item['id']).present?
-      p
-        strong Book is added in favorites
+      strong Book is added in favorites
     - elsif user_signed_in?
       = form_tag add_in_favorites_user_books_path(current_user), remote: true, class: "add-book-#{item['id']}-form" do
         = text_field_tag :google_book_id, {}, value: item['id'], type: 'hidden'
-        br
-        = submit_tag 'Add book in My Books', class: 'btn'
-br
+        = submit_tag 'Add book in My Books', class: 'btn btn-success margin-top'
 hr

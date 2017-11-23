@@ -1,6 +1,6 @@
 - if @books && @books['items']
-  p Found results:
+  p.margin-top Found results:
   - @books['items'].each do |item|
     = render 'searches/book', item: item
 - else
-  p No results found.
+  p.margin-top No results found.

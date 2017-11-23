@@ -4,19 +4,16 @@
 .description-of-plan
   h2 Description of the plan:
   p = @plan.description
-br
-- readed = @plan.percent_of_readed_books
-- one_percent = @plan.books.size / 100.0
-- marked_books = @plan.plans_books.where(marked: true).size.to_f
 
-.progress style='height: 40px;'
+- readed = @plan.percent_of_readed_books
+
+.progress.margin-bottom.margin-top style='height: 40px;'
   .progress-bar.progress-bar-striped.bg-success [
     role="progressbar"
-    data-marked-books="#{marked_books}"
-    data-one-percent="#{one_percent}"
+    data-marked-books="#{@plan.size_of_marked_books}"
+    data-one-percent="#{@plan.books.size / 100.0}"
     style="width: #{readed}%;"
   ] = "#{readed} %"
-br
 
 = render 'plans/books', plan: @plan
 = paginate @books, theme: 'twitter-bootstrap-4'

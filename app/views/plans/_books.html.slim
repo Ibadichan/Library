@@ -1,8 +1,7 @@
-h2 Books:
-br
+h2.margin-bottom Books:
 - @books.each do |book|
   - response = Search.find_book(book.google_book_id)
-  .row.book data-book-id="#{book.id}"
+  .row.book.margin-bottom data-book-id="#{book.id}"
     .col-2
       - if response['items'][0]['volumeInfo']['imageLinks'].present?
         img src="#{response['items'][0]['volumeInfo']['imageLinks']['thumbnail']}"
@@ -18,10 +17,5 @@ br
         = render 'books/subscribe', book: book, plan: plan, user: current_user
         = render 'books/unsubscribe', book: book, plan: plan, user: current_user
       - elsif book.readed_in?(plan)
-        p
-          strong Book is readed
-  br
+        strong Book is readed
   hr
-= link_to 'Back', :back, class: 'btn btn-primary'
-br
-br
