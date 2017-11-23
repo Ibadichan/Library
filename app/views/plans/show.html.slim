@@ -1,14 +1,22 @@
-.row
-  .col
-    .title-of-plan
-      h2 Title of Plan:
-      p = @plan.title
-    .description-of-plan
-      h2 Description of the plan:
-      p = @plan.description
-  .col
-    .diagram
-      canvas#pieChart { data-readed = @plan.percent_of_readed_books }
+.title-of-plan
+  h2 Title of Plan:
+  p = @plan.title
+.description-of-plan
+  h2 Description of the plan:
+  p = @plan.description
+br
+- readed = @plan.percent_of_readed_books
+- one_percent = @plan.books.size / 100.0
+- marked_books = @plan.plans_books.where(marked: true).size.to_f
+
+.progress style='height: 40px;'
+  .progress-bar.progress-bar-striped.bg-success [
+    role="progressbar"
+    data-marked-books="#{marked_books}"
+    data-one-percent="#{one_percent}"
+    style="width: #{readed}%;"
+  ] = "#{readed} %"
+br
 
 = render 'plans/books', plan: @plan
 = paginate @books, theme: 'twitter-bootstrap-4'

@@ -20,7 +20,7 @@ feature 'User can see plan', '
 
     expect(page).to have_content plan.title
     expect(page).to have_content plan.description
-    expect(page).to have_css('canvas#pieChart')
+    expect(page).to have_css('.progress')
     expect(page).to have_content 'Stalin'
     expect(page).to have_link 'Mark book as readed'
   end

@@ -31,6 +31,6 @@ feature 'User can see own public plans', '
 
     expect(page).to have_content public_plan.title
     expect(page).to have_content public_plan.description
-    expect(page).to have_css('canvas#pieChart')
+    expect(page).to have_css('.progress')
   end
 end
