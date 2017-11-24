@@ -25,7 +25,7 @@ class BooksController < ApplicationController
   private
 
   def load_plan_and_check_access
-    @plan = Plan.find(params[:plan_id])
+    @plan = Plan.friendly.find(params[:plan_id])
     head :forbidden if @book.readed_in?(@plan) || @plan.user != current_user
   end
 

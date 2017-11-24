@@ -8,7 +8,7 @@
   = link_to 'See this plan', [plan.user, plan], class: 'btn btn-primary'
   - if can?(:take, plan)
     = link_to 'Add this plan in My Plans', take_user_plan_path(plan.user, plan),
-                                           remote: true, method: :post,
+                                           remote: true, method: :post, data: { plan_id: plan.id },
                                            class: 'btn btn-primary take-plan margin-left'
   - else
     strong.margin-left Plan is added

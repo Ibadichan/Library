@@ -39,6 +39,7 @@ gem 'sass-rails', '~> 5.0'
 gem 'sidekiq'
 gem 'sinatra', '>= 1.3.0', require: nil
 gem 'slim-rails'
+gem 'social-share-button'
 gem 'sprockets-rails'
 gem 'therubyracer', platforms: :ruby
 gem 'turbolinks', '~> 5'

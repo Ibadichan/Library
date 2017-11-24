@@ -1,5 +1,7 @@
 class PlansController < ApplicationController
-  load_and_authorize_resource except: %i[index]
+  before_action :load_plan, except: %i[index new create]
+  load_resource only: :new
+  authorize_resource except: %i[index]
   skip_authorization_check only: %i[index]
 
   def index
@@ -41,6 +43,10 @@ class PlansController < ApplicationController
   end
 
   private
+
+  def load_plan
+    @plan = Plan.friendly.find(params[:id])
+  end
 
   def plan_params
     params.require(:plan).permit(:title, :description, book_ids: [])

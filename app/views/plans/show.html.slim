@@ -17,3 +17,5 @@
 
 = render 'plans/books', plan: @plan
 = paginate @books, theme: 'twitter-bootstrap-4'
+div.margin-bottom.margin-top
+  = social_share_button_tag(@plan.title, image: 'http://mylibrary.co.uk/templates/mylib/images/mylib-logo.png')

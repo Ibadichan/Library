@@ -1,1 +1,1 @@
-$('.take-plan').replaceWith('<strong class="margin-left">Plan is added</strong>');
+$('.take-plan[data-plan-id="<%= @plan.id %>"]').replaceWith('<strong class="margin-left">Plan is added</strong>');

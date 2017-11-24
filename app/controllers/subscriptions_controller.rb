@@ -14,6 +14,7 @@ class SubscriptionsController < ApplicationController
   private
 
   def set_plans_book
-    @plans_book = PlansBook.where(book_id: params[:book_id], plan_id: params[:plan_id]).first
+    @plan = Plan.friendly.find(params[:plan_id])
+    @plans_book = PlansBook.where(book_id: params[:book_id], plan_id: @plan.id).first
   end
 end

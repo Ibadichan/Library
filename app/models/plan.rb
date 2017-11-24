@@ -1,4 +1,7 @@
 class Plan < ApplicationRecord
+  extend FriendlyId
+  friendly_id :title, use: :slugged
+
   paginates_per 2
 
   belongs_to :user
@@ -6,7 +9,7 @@ class Plan < ApplicationRecord
   has_many :plans_books, dependent: :destroy
   has_many :books, through: :plans_books
 
-  validates :title, :description, presence: true
+  validates :title, :slug, :description, presence: true
 
   def percent_of_readed_books
     one_percent = books.size / 100.0
