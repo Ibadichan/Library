@@ -22,9 +22,8 @@ feature 'User can create plan', '
     fill_in 'Title', with: 'my title'
     fill_in 'Description', with: 'my description'
 
-    select = page.find('select')
-    select.select 'Stalin, published_at: 2008-09-04, authors: Robert Service'
-    select.select 'Napoleon, published_at: 2011-10-27, authors: Alan Forrest'
+    all("input[type='checkbox']").first.set(true)
+    all("input[type='checkbox']").last.set(true)
 
     click_on 'Create'
 

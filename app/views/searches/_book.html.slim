@@ -8,6 +8,9 @@
       p = "Authors: #{item['volumeInfo']['authors'].join(', ')}"
     - if item['volumeInfo']['description']
       p = item['volumeInfo']['description']
+    - if item['volumeInfo']['industryIdentifiers']
+      javascript: GBS_insertPreviewButtonPopup("#{item['volumeInfo']['industryIdentifiers'][0]['identifier']}");
+      br
     - if item['volumeInfo']['infoLink']
       = link_to 'Additional information', item['volumeInfo']['infoLink']
       br

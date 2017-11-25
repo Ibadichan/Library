@@ -6,6 +6,7 @@ html
     = csrf_meta_tags
     = stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload'
     = javascript_include_tag 'application', 'data-turbolinks-track': 'reload'
+    script src='//books.google.com/books/previewlib.js' type="text/javascript"
   body
     nav.navbar.navbar-expand-sm.navbar-dark.bg-dark
       = link_to 'Library', root_path, class: 'navbar-brand'
