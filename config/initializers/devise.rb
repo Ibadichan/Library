@@ -239,12 +239,9 @@ Devise.setup do |config|
   config.sign_out_via = :delete
 
   # ==> OmniAuth
-  config.omniauth :facebook, Rails.application.secrets.facebook_app_id,
-                  Rails.application.secrets.facebook_app_secret
-  config.omniauth :twitter, Rails.application.secrets.twitter_app_key,
-                  Rails.application.secrets.twitter_app_secret
-  config.omniauth :vkontakte, Rails.application.secrets.vkontakte_app_id,
-                  Rails.application.secrets.vkontakte_app_secret
+  config.omniauth :facebook, ENV['FACEBOOK_APP_ID'], ENV['FACEBOOK_APP_SECRET']
+  config.omniauth :twitter, ENV['TWITTER_APP_KEY'], ENV['TWITTER_APP_SECRET']
+  config.omniauth :vkontakte, ENV['VKONTAKTE_APP_ID'], ENV['VKONTAKTE_APP_SECRET']
 
   # ==> Warden configuration
   # If you want to use other strategies, that are not supported by Devise, or

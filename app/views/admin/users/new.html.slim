@@ -1,6 +1,6 @@
 = render 'common/errors', resource: @user
 h2 style="margin-left: 15px; margin-bottom: 25px;" Create a new user
-= form_for [:admin, @user], html: { class: 'form-horizontal' } do |f|
+= form_for [:admin, @user], html: { class: 'form-horizontal', multipart: true } do |f|
   .form-group
     = f.label :avatar, class: 'col-sm-2 control-label'
     .col-sm-6

@@ -19,6 +19,6 @@
 .byebug_history
 config/database.yml
 .idea/
-public/
+public/uploads
 .env
 dump.rdb

@@ -3,7 +3,7 @@
     .col
       h1.margin-bottom Profile
       .info
-        = image_tag(@user.avatar.url, id: 'user-avatar', class: 'img-thumbnail', style: 'width: 304px; height: 236px;')
+        = image_tag(@user.avatar_url, id: 'user-avatar', class: 'img-thumbnail', style: 'width: 304px; height: 236px;')
         h4.margin-top = "My Email: #{@user.email}"
         h4.margin-bottom = "My Name: #{@user.name}"
       - if can?(:update, @user)
