@@ -5,7 +5,7 @@ Devise.setup do |config|
   # b0831b61eeb4df0da1a57060f0d1917fe18cd8f1950fe1eaf6721e6637963b3273b95b315fbf35ed27e2e520f066b1'
 
   # ==> Mailer Configuration
-  config.mailer_sender = 'please-change-me-at-config-initializers-devise@example.com'
+  config.mailer_sender = 'badican01117@gmail.com'
 
   # Configure the class responsible to send e-mails.
   # config.mailer = 'Devise::Mailer'

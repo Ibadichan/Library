@@ -38,6 +38,7 @@ gem 'responders', '~> 2.0'
 gem 'rest-client'
 gem 'rubocop', require: false
 gem 'sass-rails', '~> 5.0'
+gem 'sendgrid-ruby'
 gem 'sidekiq'
 gem 'sinatra', '>= 1.3.0', require: nil
 gem 'slim-rails'
